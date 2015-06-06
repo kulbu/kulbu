@@ -1,0 +1,36 @@
+odom_frame: odom
+base_link_frame: base_link
+world_frame: odom
+
+two_d_mode: true
+
+frequency: 50
+
+odom0: diff_drive_controller/odom
+odom0_config: [false, false, false,  # x/y/z position
+              false,  false, false,  # roll, pitch, yaw angles
+              true,   false, false,  # x/y/z velocity
+              false,  false, true,   # roll/pitch/yaw velocity
+              false,  false, false   # x/y/z acceleration
+              ]
+odom0_differential: false
+
+# Stereo visual odometry.
+#odom1: odometry/stereo
+#odom1_config: [false, false, false,  # x/y/z position
+#              true,   true,  true,   # roll, pitch, yaw angles
+#              false,  false, false,  # x/y/z velocity
+#              false,  false, false,  # roll/pitch/yaw velocity
+#              false,  false, false   # x/y/z acceleration
+#              ]
+#odom1_differential: false
+
+imu0: imu0
+imu0_config: [false, false, false,  # x/y/z position
+              true,  true,  true,   # roll, pitch, yaw angle
+              false, false, false,  # x/y/z velocity
+              true,  true,  true,   # roll/pitch/yaw velocity
+              true,  false, false   # x/y/z acceleration
+              ]
+imu0_differential: false
+imu0_remove_gravitational_acceleration: true

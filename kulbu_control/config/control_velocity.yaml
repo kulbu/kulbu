@@ -1,0 +1,43 @@
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Velocity Controllers ---------------------------------------
+diff_drive_controller:
+  type: diff_drive_controller/DiffDriveController
+  left_wheel: ['mid_left_wheel_joint', 'front_left_wheel_joint', 'back_left_wheel_joint'] # [0] is used for separation calc
+  right_wheel: ['mid_right_wheel_joint', 'front_right_wheel_joint', 'back_right_wheel_joint']
+  publish_rate: 50
+  pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.03]
+  cmd_vel_timeout: 0.25
+
+  # Base frame_id
+  base_frame_id: base_link
+
+  # Disable if broadcast elsewhere.
+  enable_odom_tf: false
+
+  # False if hardware provides wheel velocities
+  estimate_velocity_from_position: false
+
+  # Wheel separation and radius multipliers
+  # FIXME: Forcing six wheels into `diff_drive_controller` breaks max velocity limit in final result.
+  wheel_separation_multiplier: 1.420633 # Trial and error, 6 wheels.
+  wheel_radius_multiplier    : 1.0 # default: 1.0
+
+  # Velocity and acceleration limits
+  # Whenever a min_* is unspecified, default to -max_*
+  linear:
+    x:
+      has_velocity_limits    : true
+      max_velocity           : 1.0   # m/s
+      has_acceleration_limits: true
+      max_acceleration       : 3.0   # m/s^2
+  angular:
+    z:
+      has_velocity_limits    : true
+      max_velocity           : 0.5   # rad/s
+      has_acceleration_limits: true
+      max_acceleration       : 6.0   # rad/s^2

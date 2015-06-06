@@ -1,0 +1,3 @@
+- git: {local-name: kulbu, uri: 'git@github.com:kulbu/kulbu.git'}
+- git: {local-name: kulbu_navigation, uri: 'git@github.com:kulbu/kulbu_navigation.git'}
+- git: {local-name: kulbu_slam, uri: 'git@github.com:kulbu/kulbu_slam.git'}

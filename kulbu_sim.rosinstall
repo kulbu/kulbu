@@ -1,0 +1,1 @@
+- git: {local-name: kulbu_gazebo, uri: 'git@github.com:kulbu/kulbu_gazebo.git'}

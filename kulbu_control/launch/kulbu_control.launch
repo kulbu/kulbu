@@ -1,0 +1,51 @@
+<launch>
+  <arg name="ns" default="/kulbu" />
+
+  <group ns="$(arg ns)">
+
+    <rosparam file="$(find kulbu_control)/config/control_velocity.yaml" command="load" />
+    <!--rosparam file="$(find kulbu_control)/config/sensor_imu.yaml" command="load" /-->
+
+    <node name="controller_spawner"
+      pkg="controller_manager"
+      type="spawner" respawn="false"
+      output="screen"
+      args="joint_state_controller
+        diff_drive_controller" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+      <param name="publish_frequency" type="double" value="30.0"/>
+      <!--param name="tf_prefix" type="string" value="$(arg ns)"/-->
+    </node>
+
+    <!-- Stereo Odometry -->
+    <!--node pkg="rtabmap_ros" type="stereo_odometry" name="stereo_odometry">
+      <param name="frame_id"      type="string" value="camera_optical_link"/>
+      <param name="odom_frame_id" type="string" value="odom"/>
+
+      <remap from="left/image_rect"       to="/stereo_camera/left/image_rect"/>
+      <remap from="right/image_rect"      to="/stereo_camera/right/image_rect"/>
+      <remap from="left/camera_info"      to="/stereo_camera/left/camera_info"/>
+      <remap from="right/camera_info"     to="/stereo_camera/right/camera_info"/>
+      <remap from="odom"                  to="$(arg ns)/odometry/stereo"/>
+
+      <param name="publish_tf"          type="bool"   value="false"/>
+      <param name="queue_size"          type="int"    value="10"/>
+      <param name="approx_sync"         type="bool"   value="false"/>
+
+      <param name="Odom/InlierDistance" type="string" value="0.1"/>
+      <param name="Odom/MinInliers"     type="string" value="10"/>
+      <param name="Odom/RoiRatios"      type="string" value="0.03 0.03 0.04 0.04"/>
+      <param name="Odom/MaxDepth"       type="string" value="5"/>
+      <param name="OdomBow/NNDR"        type="string" value="0.6"/>
+      <param name="GFTT/MaxCorners"     type="string" value="200"/>
+      <param name="GFTT/MinDistance"    type="string" value="2"/>
+      <-param name="Odom/FillInfoData"   type="string" value="$(arg rtabmapviz)"/->
+    </node-->
+
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+      <rosparam command="load" file="$(find kulbu_control)/config/localisation.yaml" />
+    </node>
+
+  </group>
+</launch>

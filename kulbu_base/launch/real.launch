@@ -1,0 +1,19 @@
+<launch>
+  <!-- Unique Robot name -->
+  <arg name="ns" default="/kulbu" />
+  <arg name="world" default="default"/>
+
+  <!-- URDF robot description -->
+  <param name="$(arg ns)/robot_description" command="$(find xacro)/xacro.py '$(find kulbu_description)/urdf/kulbu.xacro' ns:=$(arg ns)" />
+
+  <!-- Real hardware -->
+  <include file="$(find kulbu_hardware)/launch/kulbu_hardware.launch">
+    <arg name="ns" value="$(arg ns)" />
+  </include>
+
+  <!-- ROS control -->
+  <include file="$(find kulbu_control)/launch/kulbu_control.launch">
+    <arg name="ns" value="$(arg ns)" />
+  </include>
+
+</launch>

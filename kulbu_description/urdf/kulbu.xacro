@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<robot name="kulbu" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="PI" value="3.1415926535897931"/>
+
+    <xacro:property name="chassisHeight" value="0.1"/>
+    <xacro:property name="chassisLength" value="0.4"/>
+    <xacro:property name="chassisWidth" value="0.4"/>
+    <xacro:property name="chassisMass" value="50"/>
+
+    <xacro:property name="wheelWidth" value="0.05"/>
+    <xacro:property name="wheelRadius" value="0.09"/>
+    <xacro:property name="wheelPos" value="0.2"/>
+    <xacro:property name="wheelMass" value="5"/>
+
+    <xacro:property name="cameraSize" value="0.05"/>
+    <xacro:property name="cameraMass" value="0.1"/>
+
+    <arg name="gui" value="true"/>
+
+    <xacro:include filename="$(find kulbu_description)/urdf/kulbu.gazebo" />
+    <xacro:include filename="$(find kulbu_description)/urdf/materials.xacro" />
+    <xacro:include filename="$(find kulbu_description)/urdf/macros.xacro" />
+
+    <link name="base_link" />
+
+    <joint name="base_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis_link"/>
+    </joint>
+
+    <link name='chassis_link'>
+        <collision>
+            <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+            <geometry>
+                <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+            <mass value="${chassisMass}"/>
+            <box_inertia m="${chassisMass}" x="${chassisLength}" y="${chassisWidth}" z="${chassisHeight}"/>
+        </inertial>
+    </link>
+
+<!-- EffortJointInterface/VelocityJointInterface -->
+    <wheel fb="front" lr="left"  tX="1" tY="1"  mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="front" lr="right" tX="1" tY="-1" mu="0.3" interface="VelocityJointInterface" />
+
+    <wheel fb="back" lr="left"  tX="-1" tY="1"  mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="back" lr="right" tX="-1" tY="-1" mu="0.3" interface="VelocityJointInterface" />
+
+    <wheel fb="mid" lr="left"  tX="0" tY="1"  mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="mid" lr="right" tX="0" tY="-1" mu="0.3" interface="VelocityJointInterface" />
+
+    <joint name="camera_joint" type="fixed">
+        <axis xyz="0 1 0" />
+        <origin xyz="${chassisLength/2} 0 ${chassisHeight+0.05}" rpy="0 0 0"/> <!-- ${PI/2} -->
+        <parent link="chassis_link"/>
+        <child link="camera_link"/>
+    </joint>
+
+    <link name="camera_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${cameraSize} ${cameraSize*3} ${cameraSize}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${cameraSize} ${cameraSize*3} ${cameraSize}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+
+        <inertial>
+            <mass value="${cameraMass}" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <box_inertia m="${cameraMass}" x="${cameraSize}" y="${cameraSize*3}" z="${cameraSize}" />
+        </inertial>
+    </link>
+
+    <!-- OpenNI coordinates are different, transform for display in rvis -->
+    <joint name="camera_optical_joint" type="fixed">
+        <axis xyz="0 1 0" />
+        <origin xyz="${cameraSize/2} ${(cameraSize*3)/2} ${cameraSize/2}" rpy="${PI/2} ${PI} ${PI/2}"/>
+        <parent link="camera_link"/>
+        <child link="camera_optical_link"/>
+    </joint>
+
+    <link name="camera_optical_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.01 0.01 0.01"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.01 0.01 0.01"/>
+            </geometry>
+            <material name="yellow"/>
+        </visual>
+
+        <inertial>
+            <mass value="0" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <box_inertia m="0" x="0" y="0" z="0" />
+        </inertial>
+    </link>
+
+    <!--joint name="camera_left_joint" type="fixed">
+        <axis xyz="0 1 0" />
+        <origin xyz="0 ${(chassisWidth/2)-(cameraSize*2)} ${chassisHeight+(chassisHeight/2)+(cameraSize/2)}" rpy="0 -${PI/4} ${PI/2}"/>
+        <parent link="chassis_link"/>
+        <child link="camera_left_link"/>
+    </joint>
+
+    <link name="camera_left_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${cameraSize} ${cameraSize*3} ${cameraSize}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${cameraSize} ${cameraSize*3} ${cameraSize}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+
+        <inertial>
+            <mass value="${cameraMass}" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <box_inertia m="${cameraMass}" x="${cameraSize}" y="${cameraSize*3}" z="${cameraSize}" />
+        </inertial>
+    </link>
+
+    <joint name="camera_right_joint" type="fixed">
+        <axis xyz="0 1 0" />
+        <origin xyz="0 -${(chassisWidth/2)-(cameraSize*2)} ${chassisHeight+(chassisHeight/2)+(cameraSize/2)}" rpy="0 -${PI/4} -${PI/2}"/>
+        <parent link="chassis_link"/>
+        <child link="camera_right_link"/>
+    </joint>
+
+    <link name="camera_right_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${cameraSize} ${cameraSize*3} ${cameraSize}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${cameraSize} ${cameraSize*3} ${cameraSize}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+
+        <inertial>
+            <mass value="${cameraMass}" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <box_inertia m="${cameraMass}" x="${cameraSize}" y="${cameraSize*3}" z="${cameraSize}" />
+        </inertial>
+    </link-->
+
+    <!--joint name="light_joint" type="fixed">
+        <axis xyz="0 1 0" />
+        <origin xyz="${cameraSize/2} 0 ${cameraSize}" rpy="0 0 0"/>
+        <parent link="camera_link"/>
+        <child link="light_link"/>
+    </joint>
+
+    <link name="light_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${cameraSize/4} ${cameraSize/4} ${cameraSize/4}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${cameraSize/4} ${cameraSize/4} ${cameraSize/4}"/>
+            </geometry>
+            <material name="red"/>
+        </visual>
+
+        <inertial>
+            <mass value="${cameraMass}" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <box_inertia m="${cameraMass/4}" x="0" y="0" z="0" />
+        </inertial>
+    </link-->
+
+    <!-- Laser -->
+    <joint name="laser_joint" type="fixed">
+        <axis xyz="0 1 0" />
+        <origin xyz="${chassisLength/2} 0 ${chassisHeight+0.1}" rpy="0 0 0"/><!-- ${PI/2} -->
+        <parent link="chassis_link"/>
+        <child link="laser_link"/>
+    </joint>
+
+    <link name="laser_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.0 0.0 0.0"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            <material name="yellow"/>
+        </visual>
+
+        <inertial>
+            <mass value="1e-5" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+        </inertial>
+    </link>
+
+    <!-- IMU -->
+    <joint name="imu_joint" type="fixed">
+        <axis xyz="0 1 0" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="chassis_link"/>
+        <child link="imu_link"/>
+    </joint>
+
+    <link name="imu_link">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.0 0.0 0.0"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.01 0.01 0.01"/>
+            </geometry>
+            <material name="yellow"/>
+        </visual>
+
+        <inertial>
+            <mass value="1e-5" />
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+        </inertial>
+    </link>
+
+</robot>

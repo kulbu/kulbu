@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<package>
+  <name>kulbu_control</name>
+  <version>0.0.1</version>
+  <description>The kulbu_control package</description>
+
+  <maintainer email="mr-yellow@mr-yellow.com">Mr-Yellow</maintainer>
+  <license>MIT</license>
+  <url type="website">https://github.com/mryellow/kulbu_control</url>
+
+  <!-- Author tags are optional, mutiple are allowed, one per tag -->
+  <!-- Authors do not have to be maintianers, but could be -->
+  <!-- Example: -->
+  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>kulbu_description</build_depend>
+  <build_depend>controller_manager</build_depend>
+  <build_depend>robot_state_publisher</build_depend>
+  <build_depend>robot_localization</build_depend>
+  <build_depend>tf</build_depend>
+
+  <run_depend>kulbu_description</run_depend>
+  <run_depend>controller_manager</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>robot_localization</run_depend>
+  <run_depend>tf</run_depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- You can specify that this package is a metapackage here: -->
+    <!-- <metapackage/> -->
+    <!-- Other tools can request additional information be placed here -->
+  </export>
+</package>
