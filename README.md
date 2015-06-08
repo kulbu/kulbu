@@ -32,13 +32,11 @@ wstool set ratslam_ros -t src --git https://github.com/mryellow/ratslam.git -v r
 ```
 wstool update -t src
 rosdep update
-rosdep install --from-paths src --ignore-src --rosdistro indigo -y --os=debian:jessie
+rosdep install --from-paths src --ignore-src --rosdistro indigo -y
 catkin build
 ```
 
 ### Hardware
-
-* Class should automatically export GPIO pins and configure PWM.
 
 #### Enable `sysfs` PWM
 
