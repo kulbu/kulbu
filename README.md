@@ -3,7 +3,7 @@
 A basic ROS implementation with Gazebo simulation.
 
 * Utilises `diff_drive_controller`.
-* `kulbu_hardware` implements `wiringPi.softTone` for velocity control.
+* `kulbu_hardware` implements `sysfs` for velocity control by PWM.
 * No broadcast of `odom -> map` until SLAM is loaded.
 
 ## TODO
@@ -13,9 +13,18 @@ A basic ROS implementation with Gazebo simulation.
 ## install
 
 ```
-wstool merge kulbu.rosinstall -t src
-wstool merge kulbu_sim.rosinstall -t src
-wstool merge kulbu_real.rosinstall -t src
+wstool merge https://raw.githubusercontent.com/kulbu/kulbu/indigo-devel/kulbu.rosinstall -t src
+
+# Optional:
+wstool merge https://raw.githubusercontent.com/kulbu/kulbu/indigo-devel/kulbu_sim.rosinstall -t src
+wstool merge https://raw.githubusercontent.com/kulbu/kulbu/indigo-devel/kulbu_real.rosinstall -t src
+```
+
+### Untracked dependencies
+
+```
+sudo apt-get install ros-indigo-image-proc ros-indigo-tf ros-indigo-tf-conversions ros-indigo-tf-tools ros-indigo-eigen-conversions
+wstool set ratslam_ros -t src --git https://github.com/mryellow/ratslam.git -v ratslam_ros
 ```
 
 ## Build
@@ -27,10 +36,38 @@ rosdep install --from-paths src --ignore-src --rosdistro indigo -y --os=debian:j
 catkin build
 ```
 
+### Hardware
+
+* Class should automatically export GPIO pins and configure PWM.
+
+#### Enable `sysfs` PWM
+
+```
+sudo modprobe pwm-meson npwm=2
+sudo modprobe pwm-ctrl
+// or add to /etc/modules
+gpio export 87 out
+gpio export 88 out
+```
+
+#### Manual PWM control
+
+```
+# PMW0 = GPIO pin #108
+# PMW1 = GPIO pin #107
+echo 0 > /sys/devices/platform/pwm-ctrl/enable0
+echo 0 > /sys/devices/platform/pwm-ctrl/enable1
+echo 512 > /sys/devices/platform/pwm-ctrl/duty0
+echo 512 > /sys/devices/platform/pwm-ctrl/duty1
+echo 100 > /sys/devices/platform/pwm-ctrl/freq0
+echo 100 > /sys/devices/platform/pwm-ctrl/freq1
+```
+
 ## Usage
 
 ```
 roslaunch kulbu_base sim.launch
+roslaunch kulbu_base real.launch
 rosrun turtlebot_teleop turtlebot_teleop_key /turtlebot_teleop/cmd_vel:=/kulbu/diff_drive_controller/cmd_vel
 ```
 
