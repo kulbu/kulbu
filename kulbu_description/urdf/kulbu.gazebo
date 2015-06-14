@@ -5,12 +5,48 @@
     </gazebo>
 
     <gazebo>
-      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        <robotNamespace>$(arg ns)</robotNamespace>
-      </plugin>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>$(arg ns)</robotNamespace>
+        </plugin>
     </gazebo>
 
-    <!--gazebo>
+    <gazebo reference="camera_link">
+        <sensor type="depth" name="camera_depth">
+            <update_rate>20</update_rate>
+            <camera>
+                <horizontal_fov>${62.8 * PI/180.0}</horizontal_fov>
+                <image>
+                <format>R8G8B8</format>
+                <width>640</width>
+                <height>480</height>
+                </image>
+                <clip>
+                    <near>0.5</near>
+                    <far>9</far>
+                </clip>
+            </camera>
+            <plugin name="camera_depth_controller" filename="libgazebo_ros_openni_kinect.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>20</updateRate>
+                <imageTopicName>camera_depth/rgb/image_raw</imageTopicName>
+                <cameraInfoTopicName>camera_depth/rgb/camera_info</cameraInfoTopicName>
+                <depthImageTopicName>camera_depth/depth/image_raw</depthImageTopicName>
+                <depthImageCameraInfoTopicName>camera_depth/depth/camera_info</depthImageCameraInfoTopicName>
+                <pointCloudTopicName>camera_depth/depth/points</pointCloudTopicName>
+                <frameName>camera_optical_link</frameName>
+                <distortion_k1>0.0</distortion_k1>
+                <distortion_k2>0.0</distortion_k2>
+                <distortion_k3>0.0</distortion_k3>
+                <distortion_t1>0.0</distortion_t1>
+                <distortion_t2>0.0</distortion_t2>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <!--
+    // Skid steer gazebo plugin
+    // Currently using `diff_drive_controller` from `ros_control`.
+    <gazebo>
         <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
             <updateRate>100.0</updateRate>
             <robotNamespace>/kulbu</robotNamespace>
@@ -30,11 +66,14 @@
             <odometryTopic>/odometry/wheel_odometer</odometryTopic>
             <odometryFrame>/odometry/wheel_odometer</odometryFrame>
         </plugin>
-    </gazebo-->
+    </gazebo>
+    -->
 
+    <!--
+    // Stereo camera_depth using `multicamera`.
     <gazebo reference="camera_link">
         <material>Gazebo/Blue</material>
-        <sensor type="multicamera" name="stereo_camera">
+        <sensor type="multicamera" name="camera_stereo">
           <update_rate>60.0</update_rate>
           <camera name="left">
             <horizontal_fov>2.32128791</horizontal_fov>
@@ -71,13 +110,13 @@
               <stddev>0.007</stddev>
             </noise>
           </camera>
-          <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+          <plugin name="camera_stereo_controller" filename="libgazebo_ros_multicamera.so">
             <alwaysOn>true</alwaysOn>
             <updateRate>0.0</updateRate>
-            <cameraName>stereo_camera</cameraName>
+            <cameraName>camera_stereo</cameraName>
             <imageTopicName>image_raw</imageTopicName>
             <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-            <frameName>camera_optical_link</frameName><!-- TODO: model lens position -->
+            <frameName>camera_optical_link</frameName>
             <hackBaseline>0.07</hackBaseline>
             <distortionK1>0.00000001</distortionK1>
             <distortionK2>0.00000001</distortionK2>
@@ -87,6 +126,7 @@
           </plugin>
         </sensor>
     </gazebo>
+    -->
 
     <!--gazebo reference="camera_link">
         <material>Gazebo/Blue</material>
@@ -142,7 +182,7 @@
                 <baseline>0.2</baseline>
                 <alwaysOn>true</alwaysOn>
                 <updateRate>1.0</updateRate>
-                <cameraName>depth_camera/left</cameraName>
+                <cameraName>camera_depth/left</cameraName>
                 <imageTopicName>rgb/image_raw</imageTopicName>
                 <depthImageTopicName>depth/image_raw</depthImageTopicName>
                 <pointCloudTopicName>depth/points</pointCloudTopicName>
@@ -186,7 +226,7 @@
                 <baseline>0.2</baseline>
                 <alwaysOn>true</alwaysOn>
                 <updateRate>1.0</updateRate>
-                <cameraName>depth_camera/right</cameraName>
+                <cameraName>camera_depth/right</cameraName>
                 <imageTopicName>rgb/image_raw</imageTopicName>
                 <depthImageTopicName>depth/image_raw</depthImageTopicName>
                 <pointCloudTopicName>depth/points</pointCloudTopicName>

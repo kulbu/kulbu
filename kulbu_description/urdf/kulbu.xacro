@@ -49,7 +49,7 @@
         </inertial>
     </link>
 
-<!-- EffortJointInterface/VelocityJointInterface -->
+    <!-- EffortJointInterface/VelocityJointInterface -->
     <wheel fb="front" lr="left"  tX="1" tY="1"  mu="0.3" interface="VelocityJointInterface" />
     <wheel fb="front" lr="right" tX="1" tY="-1" mu="0.3" interface="VelocityJointInterface" />
 
