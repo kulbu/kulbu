@@ -4,6 +4,7 @@
   <arg name="world" default="default" />
 
   <arg name="use_gazebo" default="true" />
+  <arg name="publish_tf" default="false" />
 
   <!-- URDF robot description -->
   <param name="$(arg ns)/robot_description" command="$(find xacro)/xacro.py '$(find kulbu_description)/urdf/kulbu.xacro' ns:=$(arg ns)" />
@@ -18,5 +19,8 @@
   <include file="$(find kulbu_control)/launch/kulbu_control.launch">
     <arg name="ns" value="$(arg ns)" />
   </include>
+
+  <!-- Fix `base_link` frame to `map`. -->
+  <node if="$(arg publish_tf)" pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 map base_link 100" />
 
 </launch>

@@ -36,12 +36,43 @@ rosdep install --from-paths src --ignore-src --rosdistro indigo -y
 catkin build
 ```
 
-### Hardware
+## Usage
+
+```
+roslaunch kulbu_base sim.launch
+roslaunch kulbu_base real.launch
+rosrun turtlebot_teleop turtlebot_teleop_key /turtlebot_teleop/cmd_vel:=/kulbu/diff_drive_controller/cmd_vel
+```
+
+### Navigation
+
+```
+roslaunch kulbu_movebase move_base.launch
+roslaunch kulbu_moveit moveit.launch
+```
+
+### SLAM
+
+```
+roslaunch kulbu_slam rtab.launch rviz:=true
+rosrun rviz rviz -d `rospack find kulbu_slam`/config/nav.rviz
+roslaunch kulbu_slam rtabmapviz.launch
+roslaunch kulbu_slam ratslam.launch
+roslaunch kulbu_slam orb_slam.launch
+rosrun lsd_slam_viewer viewer && rosrun lsd_slam_core live_slam image:=/stereo_camera/left/image_raw camera_io:=/stereo_camera/left/camera_info
+```
+
+### Frontier exploration
+
+```
+roslaunch kulbu_navigation explore.launch
+```
+
+## Hardware
 
 * https://github.com/kulbu/kulbu_hardware
 
-
-
+### Wheels
 
 #### Enable `sysfs` PWM
 
@@ -66,15 +97,22 @@ echo 100 > /sys/devices/platform/pwm-ctrl/freq0
 echo 100 > /sys/devices/platform/pwm-ctrl/freq1
 ```
 
-## Usage
+### RGBD Camera
+
+* Assuming image frames are aligned with Asus Xtion Pro Live hardware registration.
+
+#### Testing
 
 ```
-roslaunch kulbu_base sim.launch
-roslaunch kulbu_base real.launch
-rosrun turtlebot_teleop turtlebot_teleop_key /turtlebot_teleop/cmd_vel:=/kulbu/diff_drive_controller/cmd_vel
+roslaunch kulbu_base real.launch use_wheels:=false use_openni:=true
+rosrun image_view image_view image:=/camera_depth/depth_registered/image_raw
 ```
+
+## Misc
 
 ### Odometry calibration
+
+* `diff_drive_controller` is a bit of a hack for multi-wheel, need to figure out fake wheel radius multiplier.
 
 ```
 roslaunch kulbu_base sim.launch world:=empty
@@ -82,29 +120,6 @@ rosrun rviz rviz -d `rospack find kulbu_gazebo`/config/odom.rviz
 rostopic pub -r 10 /kulbu/diff_drive_controller/cmd_vel geometry_msgs/Twist -- '[0.0, 0.0, 0.0]' '[0.0, 0.0, 1.0]'
 ```
 
-### Navigation
-
-```
-roslaunch kulbu_movebase move_base.launch
-roslaunch kulbu_moveit moveit.launch
-```
-
-### SLAM
-
-```
-roslaunch kulbu_slam rtab.launch
-rosrun rviz rviz -d `rospack find kulbu_slam`/config/nav.rviz
-roslaunch kulbu_slam rtabmapviz.launch
-roslaunch kulbu_slam ratslam.launch
-roslaunch kulbu_slam orb_slam.launch
-rosrun lsd_slam_viewer viewer && rosrun lsd_slam_core live_slam image:=/stereo_camera/left/image_raw camera_io:=/stereo_camera/left/camera_info
-```
-
-### Frontier exploration
-
-```
-roslaunch kulbu_navigation explore.launch
-```
 
 ### MoveIt! configuration
 
