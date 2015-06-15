@@ -15,6 +15,10 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <build_depend>openni2_launch</build_depend>
+
+  <run_depend>openni2_launch</run_depend>
+
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- You can specify that this package is a metapackage here: -->
