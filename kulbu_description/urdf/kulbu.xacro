@@ -50,23 +50,23 @@
     </link>
 
     <!-- EffortJointInterface/VelocityJointInterface -->
-    <wheel fb="front" lr="left"  tX="1" tY="1"  mu="0.3" interface="VelocityJointInterface" />
-    <wheel fb="front" lr="right" tX="1" tY="-1" mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="front" lr="left"  tX="1"  tY="1"   mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="front" lr="right" tX="1"  tY="-1"  mu="0.3" interface="VelocityJointInterface" />
 
-    <wheel fb="back" lr="left"  tX="-1" tY="1"  mu="0.3" interface="VelocityJointInterface" />
-    <wheel fb="back" lr="right" tX="-1" tY="-1" mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="back"  lr="left"  tX="-1" tY="1"   mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="back"  lr="right" tX="-1" tY="-1"  mu="0.3" interface="VelocityJointInterface" />
 
-    <wheel fb="mid" lr="left"  tX="0" tY="1"  mu="0.3" interface="VelocityJointInterface" />
-    <wheel fb="mid" lr="right" tX="0" tY="-1" mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="mid"   lr="left"  tX="0"  tY="1"   mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="mid"   lr="right" tX="0"  tY="-1"  mu="0.3" interface="VelocityJointInterface" />
 
-    <joint name="camera_joint" type="fixed">
+    <joint name="camera_depth_joint" type="fixed">
         <axis xyz="0 1 0" />
-        <origin xyz="${chassisLength/2} 0 ${chassisHeight+0.05}" rpy="0 0 0"/> <!-- ${PI/2} -->
+        <origin xyz="${chassisLength/2} 0 ${chassisHeight+0.05}" rpy="0 0 0"/> <!-- Rotate sideways: ${PI/2} -->
         <parent link="chassis_link"/>
-        <child link="camera_link"/>
+        <child link="camera_depth_link"/>
     </joint>
 
-    <link name="camera_link">
+    <link name="camera_depth_link">
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
@@ -90,14 +90,14 @@
     </link>
 
     <!-- OpenNI coordinates are different, transform for display in rvis -->
-    <joint name="camera_optical_joint" type="fixed">
+    <joint name="camera_depth_optical_joint" type="fixed">
         <axis xyz="0 1 0" />
-        <origin xyz="${cameraSize/2} ${(cameraSize*3)/2} ${cameraSize/2}" rpy="${PI/2} ${PI} ${PI/2}"/>
-        <parent link="camera_link"/>
-        <child link="camera_optical_link"/>
+        <origin xyz="${cameraSize/2} 0 ${cameraSize/2}" rpy="${PI/2} ${PI} ${PI/2}"/>
+        <parent link="camera_depth_link"/>
+        <child link="camera_depth_optical_link"/>
     </joint>
 
-    <link name="camera_optical_link">
+    <link name="camera_depth_optical_link">
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
@@ -213,7 +213,7 @@
     <!-- Laser -->
     <joint name="laser_joint" type="fixed">
         <axis xyz="0 1 0" />
-        <origin xyz="${chassisLength/2} 0 ${chassisHeight+0.1}" rpy="0 0 0"/><!-- ${PI/2} -->
+        <origin xyz="${chassisLength/2} 0 ${chassisHeight+0.2}" rpy="0 0 0"/><!-- ${PI/2} -->
         <parent link="chassis_link"/>
         <child link="laser_link"/>
     </joint>

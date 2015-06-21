@@ -24,6 +24,7 @@ wstool merge https://raw.githubusercontent.com/kulbu/kulbu/indigo-devel/kulbu_re
 
 ```
 sudo apt-get install ros-indigo-image-proc ros-indigo-tf ros-indigo-tf-conversions ros-indigo-tf-tools ros-indigo-eigen-conversions
+sudo apt-get install libirrlicht-dev
 wstool set ratslam_ros -t src --git https://github.com/mryellow/ratslam.git -v ratslam_ros
 ```
 
@@ -57,9 +58,15 @@ roslaunch kulbu_moveit moveit.launch
 roslaunch kulbu_slam rtab.launch rviz:=true
 rosrun rviz rviz -d `rospack find kulbu_slam`/config/nav.rviz
 roslaunch kulbu_slam rtabmapviz.launch
-roslaunch kulbu_slam ratslam.launch
 roslaunch kulbu_slam orb_slam.launch
 rosrun lsd_slam_viewer viewer && rosrun lsd_slam_core live_slam image:=/stereo_camera/left/image_raw camera_io:=/stereo_camera/left/camera_info
+```
+
+#### RatSLAM
+
+```
+roslaunch kulbu_base sim.launch use_ekf:=false
+roslaunch kulbu_slam rat.launch use_rat_odom:=false use_sim_odom:=true
 ```
 
 ### Frontier exploration

@@ -4,6 +4,7 @@
   <arg name="world" default="default" />
 
   <arg name="use_gazebo" default="true" />
+  <arg name="use_ekf"    default="true" />
   <arg name="publish_tf" default="false" />
 
   <!-- URDF robot description -->
@@ -18,6 +19,7 @@
   <!-- ROS control -->
   <include file="$(find kulbu_control)/launch/kulbu_control.launch">
     <arg name="ns" value="$(arg ns)" />
+    <arg name="use_ekf" value="$(arg use_ekf)" />
   </include>
 
   <!-- Fix `base_link` frame to `map`. -->

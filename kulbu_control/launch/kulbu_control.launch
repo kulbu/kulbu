@@ -1,6 +1,8 @@
 <launch>
   <arg name="ns" default="/kulbu" />
 
+  <arg name="use_ekf" default="true" />
+
   <group ns="$(arg ns)">
 
     <rosparam file="$(find kulbu_control)/config/control_velocity.yaml" command="load" />
@@ -48,7 +50,7 @@
       <-param name="Odom/FillInfoData"   type="string" value="$(arg rtabmapviz)"/->
     </node-->
 
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+    <node if="$(arg use_ekf)" pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
       <rosparam command="load" file="$(find kulbu_control)/config/localisation.yaml" />
     </node>
 

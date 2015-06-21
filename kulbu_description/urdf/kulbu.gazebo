@@ -10,7 +10,8 @@
         </plugin>
     </gazebo>
 
-    <gazebo reference="camera_link">
+    <gazebo reference="camera_depth_link">
+        <material>Gazebo/Blue</material>
         <sensor type="depth" name="camera_depth">
             <update_rate>20</update_rate>
             <camera>
@@ -21,8 +22,8 @@
                 <height>480</height>
                 </image>
                 <clip>
-                    <near>0.5</near>
-                    <far>9</far>
+                    <near>0.01</near>
+                    <far>10</far>
                 </clip>
             </camera>
             <plugin name="camera_depth_controller" filename="libgazebo_ros_openni_kinect.so">
@@ -33,7 +34,7 @@
                 <depthImageTopicName>camera_depth/depth/image_raw</depthImageTopicName>
                 <depthImageCameraInfoTopicName>camera_depth/depth/camera_info</depthImageCameraInfoTopicName>
                 <pointCloudTopicName>camera_depth/depth/points</pointCloudTopicName>
-                <frameName>camera_optical_link</frameName>
+                <frameName>camera_depth_optical_link</frameName>
                 <distortion_k1>0.0</distortion_k1>
                 <distortion_k2>0.0</distortion_k2>
                 <distortion_k3>0.0</distortion_k3>
@@ -277,6 +278,7 @@
 
 
     <gazebo reference="laser_link">
+        <material>Gazebo/Red</material>
         <sensor type="ray" name="laser_sensor">
             <pose>0 0 0 0 0 0</pose>
             <visualize>false</visualize>
@@ -358,7 +360,7 @@
     </gazebo>
     -->
 
-    <!-- Perfect imu
+    <!-- Perfect IMU
     <gazebo>
         <plugin name="quadrotor_imu_sim" filename="libhector_gazebo_ros_imu.so">
             <robotNamespace>$(arg ns)</robotNamespace>
@@ -378,6 +380,7 @@
     </gazebo>
     -->
 
+    <!-- Hector IMU
     <gazebo>
         <plugin name="quadrotor_imu_sim0" filename="libhector_gazebo_ros_imu.so">
             <robotNamespace>$(arg ns)</robotNamespace>
@@ -385,8 +388,8 @@
             <bodyName>imu_link</bodyName>
             <frameId>imu_link</frameId>
             <topicName>$(arg ns)/imu0</topicName>
-            <rpyOffsets>0 0 0</rpyOffsets> <!-- deprecated -->
-            <gaussianNoise>0</gaussianNoise>  <!-- deprecated -->
+            <rpyOffsets>0 0 0</rpyOffsets> <- deprecated ->
+            <gaussianNoise>0</gaussianNoise>  <- deprecated ->
             <accelDrift>0.5 0.5 0.5</accelDrift>
             <accelGaussianNoise>0.35 0.35 0.3</accelGaussianNoise>
             <rateDrift>0.1 0.1 0.1</rateDrift>
@@ -395,5 +398,6 @@
             <headingGaussianNoise>0.05</headingGaussianNoise>
         </plugin>
     </gazebo>
+    -->
 
 </robot>
