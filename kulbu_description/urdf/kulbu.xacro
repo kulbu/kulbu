@@ -241,6 +241,19 @@
         </inertial>
     </link>
 
+    <!-- Range
+    0.130899694 = 7.5deg (middle comes to here)
+    0.261799388 = 15deg (2nd centre here)
+    0.392699082 = 22.5deg (2nd comes to here)
+    0.523598776 = 30deg (3rd centre here)
+    0.654498469 = 37.5deg
+    -->
+    <sensor_range name="range_0"  linX="${0.02+chassisLength/2}" linY="0"     linZ="${chassisHeight}" angR="0" angP="0" angY="0" />
+    <sensor_range name="range_1l" linX="${0.02+chassisLength/2}" linY="0.05"  linZ="${chassisHeight}" angR="0" angP="0" angY="0.261799388" />
+    <sensor_range name="range_2l" linX="${0.02+chassisLength/2}" linY="0.10"  linZ="${chassisHeight}" angR="0" angP="0" angY="0.523598776" />
+    <sensor_range name="range_1r" linX="${0.02+chassisLength/2}" linY="-0.05" linZ="${chassisHeight}" angR="0" angP="0" angY="-0.261799388" />
+    <sensor_range name="range_2r" linX="${0.02+chassisLength/2}" linY="-0.10" linZ="${chassisHeight}" angR="0" angP="0" angY="-0.523598776" />
+
     <!-- IMU -->
     <joint name="imu_joint" type="fixed">
         <axis xyz="0 1 0" />

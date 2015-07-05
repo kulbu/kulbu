@@ -14,8 +14,9 @@
   <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
 
   <buildtool_depend>catkin</buildtool_depend>
-  
+
   <run_depend>xacro</run_depend>
+  <run_depend>hector_gazebo</run_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

@@ -1,48 +1,47 @@
 <?xml version="1.0"?>
 <robot name="kulbu" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <macro name="cylinder_inertia" params="m r h">
-      <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
-        iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
-        izz="${m*r*r/2}"
-      />
+        <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy="0" ixz="0"
+          iyy="${m*(3*r*r+h*h)/12}" iyz="0"
+          izz="${m*r*r/2}"
+        />
     </macro>
 
     <macro name="box_inertia" params="m x y z">
-      <inertia  ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0"
-        iyy="${m*(x*x+z*z)/12}" iyz = "0"
-        izz="${m*(x*x+z*z)/12}"
-      />
+        <inertia  ixx="${m*(y*y+z*z)/12}" ixy="0" ixz="0"
+          iyy="${m*(x*x+z*z)/12}" iyz="0"
+          izz="${m*(x*x+z*z)/12}"
+        />
     </macro>
 
     <macro name="sphere_inertia" params="m r">
-      <inertia  ixx="${2*m*r*r/5}" ixy = "0" ixz = "0"
-        iyy="${2*m*r*r/5}" iyz = "0"
-        izz="${2*m*r*r/5}"
-      />
+        <inertia  ixx="${2*m*r*r/5}" ixy="0" ixz="0"
+          iyy="${2*m*r*r/5}" iyz="0"
+          izz="${2*m*r*r/5}"
+        />
     </macro>
 
     <macro name="wheel" params="fb lr tX tY mu interface">
-
         <link name="${fb}_${lr}_wheel">
           <collision>
-            <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
-            <geometry>
-              <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
-            </geometry>
+              <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
+              <geometry>
+                  <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+              </geometry>
           </collision>
 
           <visual>
-            <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
-            <geometry>
-              <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
-            </geometry>
-            <material name="black"/>
+              <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
+              <geometry>
+                  <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+              </geometry>
+              <material name="black"/>
           </visual>
 
           <inertial>
-            <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
-            <mass value="${wheelMass}"/>
-            <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}"/>
+              <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
+              <mass value="${wheelMass}"/>
+              <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}"/>
           </inertial>
         </link>
 
@@ -75,4 +74,68 @@
         </transmission>
 
     </macro>
+
+    <macro name="sensor_range" params="name linX linY linZ angR angP angY">
+        <joint name="range_${name}_joint" type="fixed">
+            <axis xyz="0 1 0" />
+            <origin xyz="${linX} ${linY} ${linZ}" rpy="${angR} ${angP} ${angY}" />
+            <parent link="chassis_link" />
+            <child link="range_${name}_link" />
+        </joint>
+
+        <link name="range_${name}_link">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.0 0.0 0.0" />
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.015 0.045 0.02" />
+                </geometry>
+                <material name="blue" />
+            </visual>
+
+            <inertial>
+                <mass value="0.001" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017" />
+            </inertial>
+        </link>
+
+        <gazebo reference="range_${name}_link">
+            <material>Gazebo/Blue</material>
+            <sensor type="ray" name="range_${name}">
+                <update_rate>10</update_rate>
+                <ray>
+                    <range>
+                        <min>0.02</min>
+                        <max>4.00</max>
+                        <resolution>0.01</resolution>
+                    </range>
+                    <scan>
+                        <horizontal>
+                            <samples>1</samples>
+                            <min_angle>-0.130899694</min_angle>
+                            <max_angle>0.130899694</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <samples>1</samples>
+                            <min_angle>-0.130899694</min_angle>
+                            <max_angle>0.130899694</max_angle>
+                        </vertical>
+                    </scan>
+                </ray>
+                <plugin name="gazebo_ros_sonar_${name}_controller" filename="libhector_gazebo_ros_sonar.so">
+                    <gaussianNoise>0.000</gaussianNoise>
+                    <topicName>$(arg ns)/${name}</topicName>
+                    <frameId>range_${name}_link</frameId>
+                </plugin>
+            </sensor>
+        </gazebo>
+    </macro>
+
 </robot>

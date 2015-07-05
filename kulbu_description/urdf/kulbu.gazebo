@@ -21,9 +21,10 @@
                 <width>640</width>
                 <height>480</height>
                 </image>
+                <!-- TODO: Clip to specs or leave RGB open range? -->
                 <clip>
                     <near>0.01</near>
-                    <far>10</far>
+                    <far>50</far>
                 </clip>
             </camera>
             <plugin name="camera_depth_controller" filename="libgazebo_ros_openni_kinect.so">
@@ -380,7 +381,7 @@
     </gazebo>
     -->
 
-    <!-- Hector IMU
+    <!-- Hector IMU -->
     <gazebo>
         <plugin name="quadrotor_imu_sim0" filename="libhector_gazebo_ros_imu.so">
             <robotNamespace>$(arg ns)</robotNamespace>
@@ -388,8 +389,8 @@
             <bodyName>imu_link</bodyName>
             <frameId>imu_link</frameId>
             <topicName>$(arg ns)/imu0</topicName>
-            <rpyOffsets>0 0 0</rpyOffsets> <- deprecated ->
-            <gaussianNoise>0</gaussianNoise>  <- deprecated ->
+            <rpyOffsets>0 0 0</rpyOffsets> <!-- deprecated -->
+            <gaussianNoise>0</gaussianNoise>  <!-- deprecated -->
             <accelDrift>0.5 0.5 0.5</accelDrift>
             <accelGaussianNoise>0.35 0.35 0.3</accelGaussianNoise>
             <rateDrift>0.1 0.1 0.1</rateDrift>
@@ -398,6 +399,5 @@
             <headingGaussianNoise>0.05</headingGaussianNoise>
         </plugin>
     </gazebo>
-    -->
 
 </robot>
