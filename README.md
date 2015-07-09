@@ -8,6 +8,7 @@ A basic ROS implementation with Gazebo simulation.
 
 ## TODO
 
+* [ ] Find a working solution for bumpers.
 * [ ] Bro down?
 
 ## install

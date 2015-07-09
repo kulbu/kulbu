@@ -76,14 +76,14 @@
     </macro>
 
     <macro name="sensor_range" params="name linX linY linZ angR angP angY">
-        <joint name="range_${name}_joint" type="fixed">
+        <joint name="${name}_joint" type="fixed">
             <axis xyz="0 1 0" />
             <origin xyz="${linX} ${linY} ${linZ}" rpy="${angR} ${angP} ${angY}" />
             <parent link="chassis_link" />
-            <child link="range_${name}_link" />
+            <child link="${name}_link" />
         </joint>
 
-        <link name="range_${name}_link">
+        <link name="${name}_link">
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
@@ -106,10 +106,11 @@
             </inertial>
         </link>
 
-        <gazebo reference="range_${name}_link">
+        <gazebo reference="${name}_link">
             <material>Gazebo/Blue</material>
-            <sensor type="ray" name="range_${name}">
-                <update_rate>10</update_rate>
+            <sensor type="ray" name="${name}_sensor">
+                <always_on>true</always_on>
+                <update_rate>30</update_rate>
                 <ray>
                     <range>
                         <min>0.02</min>
@@ -132,7 +133,56 @@
                 <plugin name="gazebo_ros_sonar_${name}_controller" filename="libhector_gazebo_ros_sonar.so">
                     <gaussianNoise>0.000</gaussianNoise>
                     <topicName>$(arg ns)/${name}</topicName>
-                    <frameId>range_${name}_link</frameId>
+                    <frameId>${name}_link</frameId>
+                </plugin>
+            </sensor>
+        </gazebo>
+    </macro>
+
+    <!-- FIXME: Fails unless connected to world frame, I think... -->
+    <macro name="sensor_bump" params="name linX linY linZ angR angP angY">
+        <!-- TODO: Macro these reusable joint templates -->
+        <joint name="${name}_joint" type="fixed">
+            <axis xyz="0 1 0" />
+            <origin xyz="${linX} ${linY} ${linZ}" rpy="${angR} ${angP} ${angY}" />
+            <parent link="chassis_link" />
+            <child link="${name}_link" />
+        </joint>
+
+        <link name="${name}_link">
+            <collision name="${name}_link_collision">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.01 0.10 0.01" />
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.01 0.10 0.01" />
+                </geometry>
+                <material name="blue" />
+            </visual>
+
+            <inertial>
+                <mass value="0.005" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <box_inertia m="0.005" x="0.01" y="0.10" z="0.01" />
+            </inertial>
+        </link>
+
+        <gazebo reference="${name}_link">
+            <material>Gazebo/Blue</material>
+            <sensor type="foo" name="${name}_sensor">
+                <always_on>true</always_on>
+                <update_rate>30.0</update_rate>
+                <contact>
+                    <collision>${name}_link_collision</collision>
+                </contact>
+                <plugin name="gazebo_ros_bumper_${name}" filename="libgazebo_ros_bumper.so">
+                    <bumperTopicName>$(arg ns)/${name}</bumperTopicName>
+                    <frameName>${name}_link</frameName>
                 </plugin>
             </sensor>
         </gazebo>

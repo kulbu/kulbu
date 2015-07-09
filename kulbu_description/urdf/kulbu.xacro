@@ -247,12 +247,18 @@
     0.392699082 = 22.5deg (2nd comes to here)
     0.523598776 = 30deg (3rd centre here)
     0.654498469 = 37.5deg
+    0.785398163 = 45deg
     -->
-    <sensor_range name="range_0"  linX="${0.02+chassisLength/2}" linY="0"     linZ="${chassisHeight}" angR="0" angP="0" angY="0" />
-    <sensor_range name="range_1l" linX="${0.02+chassisLength/2}" linY="0.05"  linZ="${chassisHeight}" angR="0" angP="0" angY="0.261799388" />
-    <sensor_range name="range_2l" linX="${0.02+chassisLength/2}" linY="0.10"  linZ="${chassisHeight}" angR="0" angP="0" angY="0.523598776" />
-    <sensor_range name="range_1r" linX="${0.02+chassisLength/2}" linY="-0.05" linZ="${chassisHeight}" angR="0" angP="0" angY="-0.261799388" />
-    <sensor_range name="range_2r" linX="${0.02+chassisLength/2}" linY="-0.10" linZ="${chassisHeight}" angR="0" angP="0" angY="-0.523598776" />
+    <sensor_range name="range_0"  linX="${0.02+chassisLength/2}" linY="0"     linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0" />
+    <sensor_range name="range_1l" linX="${0.02+chassisLength/2}" linY="0.05"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.261799388" />
+    <sensor_range name="range_2l" linX="${0.02+chassisLength/2}" linY="0.10"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.523598776" />
+    <sensor_range name="range_3l" linX="${0.02+chassisLength/2}" linY="0.15"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.785398163" />
+    <sensor_range name="range_1r" linX="${0.02+chassisLength/2}" linY="-0.05" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.261799388" />
+    <sensor_range name="range_2r" linX="${0.02+chassisLength/2}" linY="-0.10" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.523598776" />
+    <sensor_range name="range_3r" linX="${0.02+chassisLength/2}" linY="-0.15" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.785398163" />
+
+    <!--sensor_bump name="bump_l" linX="${chassisLength/2}" linY="0.15"  linZ="${chassisHeight}" angR="0" angP="0" angY="0.785398163" /-->
+    <!--sensor_bump name="bump_r" linX="${chassisLength/2}" linY="-0.15" linZ="${chassisHeight}" angR="0" angP="0" angY="-0.785398163" /-->
 
     <!-- IMU -->
     <joint name="imu_joint" type="fixed">

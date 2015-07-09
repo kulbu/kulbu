@@ -7,6 +7,8 @@
   <arg name="use_ekf"    default="true" />
   <arg name="publish_tf" default="false" />
 
+  <!-- TODO: Arg to enable broadcast of odom tf `diff_drive_controller.enable_odom_tf` -->
+
   <!-- URDF robot description -->
   <param name="$(arg ns)/robot_description" command="$(find xacro)/xacro.py '$(find kulbu_description)/urdf/kulbu.xacro' ns:=$(arg ns)" />
 
