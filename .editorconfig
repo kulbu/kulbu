@@ -1,7 +1,3 @@
-[*.xml]
-indent_style = space
-indent_size = 4
-
-[*.xacro]
+[*.{xml,launch,xacro,gazebo}]
 indent_style = space
 indent_size = 4

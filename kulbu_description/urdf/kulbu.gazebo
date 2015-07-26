@@ -365,7 +365,7 @@
     <gazebo>
         <plugin name="quadrotor_imu_sim" filename="libhector_gazebo_ros_imu.so">
             <robotNamespace>$(arg ns)</robotNamespace>
-            <updateRate>100.0</updateRate>
+            <updateRate>50.0</updateRate>
             <bodyName>imu_link</bodyName>
             <frameId>imu_link</frameId>
             <topicName>$(arg ns)/imu</topicName>
@@ -385,7 +385,7 @@
     <gazebo>
         <plugin name="quadrotor_imu_sim0" filename="libhector_gazebo_ros_imu.so">
             <robotNamespace>$(arg ns)</robotNamespace>
-            <updateRate>100.0</updateRate>
+            <updateRate>50.0</updateRate>
             <bodyName>imu_link</bodyName>
             <frameId>imu_link</frameId>
             <topicName>$(arg ns)/imu0</topicName>

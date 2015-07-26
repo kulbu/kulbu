@@ -68,6 +68,7 @@ rosrun lsd_slam_viewer viewer && rosrun lsd_slam_core live_slam image:=/stereo_c
 ```
 roslaunch kulbu_base sim.launch use_ekf:=false
 roslaunch kulbu_slam rat.launch use_rat_odom:=false use_sim_odom:=true
+roslaunch kulbu_slam rat.launch use_rat_odom:=false topic_odom:=/kulbu/odometry/filtered
 ```
 
 ### Frontier exploration

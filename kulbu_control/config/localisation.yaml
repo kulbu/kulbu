@@ -4,6 +4,7 @@ world_frame: odom
 
 two_d_mode: true
 
+# FIXME: Too fast for RatSLAM?
 frequency: 50
 
 odom0: diff_drive_controller/odom

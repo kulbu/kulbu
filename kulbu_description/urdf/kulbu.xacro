@@ -213,7 +213,7 @@
     <!-- Laser -->
     <joint name="laser_joint" type="fixed">
         <axis xyz="0 1 0" />
-        <origin xyz="${chassisLength/2} 0 ${chassisHeight+0.2}" rpy="0 0 0"/><!-- ${PI/2} -->
+        <origin xyz="${chassisLength/4} 0 ${chassisHeight+0.1}" rpy="0 0 0"/><!-- ${PI/2} -->
         <parent link="chassis_link"/>
         <child link="laser_link"/>
     </joint>
@@ -249,13 +249,14 @@
     0.654498469 = 37.5deg
     0.785398163 = 45deg
     -->
-    <sensor_range name="range_0"  linX="${0.02+chassisLength/2}" linY="0"     linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0" />
-    <sensor_range name="range_1l" linX="${0.02+chassisLength/2}" linY="0.05"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.261799388" />
-    <sensor_range name="range_2l" linX="${0.02+chassisLength/2}" linY="0.10"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.523598776" />
-    <sensor_range name="range_3l" linX="${0.02+chassisLength/2}" linY="0.15"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.785398163" />
-    <sensor_range name="range_1r" linX="${0.02+chassisLength/2}" linY="-0.05" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.261799388" />
-    <sensor_range name="range_2r" linX="${0.02+chassisLength/2}" linY="-0.10" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.523598776" />
-    <sensor_range name="range_3r" linX="${0.02+chassisLength/2}" linY="-0.15" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.785398163" />
+    <!--sensor_range name="range"    linX="${0.02+chassisLength/2}" linY="0"     linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-3.0" /-->
+    <sensor_range name="range_0"  linX="${chassisLength/2}" linY="0"     linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0" />
+    <sensor_range name="range_1l" linX="${chassisLength/2}" linY="0.05"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.261799388" />
+    <sensor_range name="range_2l" linX="${chassisLength/2}" linY="0.10"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.523598776" />
+    <sensor_range name="range_3l" linX="${chassisLength/2}" linY="0.15"  linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="0.785398163" />
+    <sensor_range name="range_1r" linX="${chassisLength/2}" linY="-0.05" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.261799388" />
+    <sensor_range name="range_2r" linX="${chassisLength/2}" linY="-0.10" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.523598776" />
+    <sensor_range name="range_3r" linX="${chassisLength/2}" linY="-0.15" linZ="${chassisHeight+0.3}" angR="0" angP="0" angY="-0.785398163" />
 
     <!--sensor_bump name="bump_l" linX="${chassisLength/2}" linY="0.15"  linZ="${chassisHeight}" angR="0" angP="0" angY="0.785398163" /-->
     <!--sensor_bump name="bump_r" linX="${chassisLength/2}" linY="-0.15" linZ="${chassisHeight}" angR="0" angP="0" angY="-0.785398163" /-->
