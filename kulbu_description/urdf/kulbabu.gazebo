@@ -17,7 +17,7 @@
             <updateRate>50.0</updateRate>
             <bodyName>imu_link</bodyName>
             <frameId>imu_link</frameId>
-            <topicName>$(arg ns)/imu0</topicName>
+            <topicName>imu0</topicName>
             <rpyOffsets>0 0 0</rpyOffsets> <!-- deprecated -->
             <gaussianNoise>0</gaussianNoise>  <!-- deprecated -->
             <accelDrift>0.5 0.5 0.5</accelDrift>
