@@ -75,7 +75,77 @@
 
     </macro>
 
-    <macro name="sensor_range" params="name linX linY linZ angR angP angY">
+    <macro name="sensor_gazebo_range" params="name linX linY linZ angR angP angY">
+        <joint name="${name}_joint" type="fixed">
+            <axis xyz="0 1 0" />
+            <origin xyz="${linX} ${linY} ${linZ}" rpy="${angR} ${angP} ${angY}" />
+            <parent link="chassis_link" />
+            <child link="${name}_link" />
+        </joint>
+
+        <link name="${name}_link">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.0 0.0 0.0" />
+                </geometry>
+            </collision>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <box size="0.015 0.045 0.02" />
+                </geometry>
+                <material name="blue" />
+            </visual>
+
+            <inertial>
+                <mass value="0.001" />
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017" />
+            </inertial>
+        </link>
+
+        <gazebo reference="${name}_link">
+            <material>Gazebo/Blue</material>
+            <sensor type="ray" name="${name}_sensor">
+                <always_on>true</always_on>
+                <update_rate>5.0</update_rate>
+                <ray>
+                    <range>
+                        <min>0.02</min>
+                        <max>4.00</max>
+                        <resolution>0.01</resolution>
+                    </range>
+                    <scan>
+                      <horizontal>
+                        <samples>5</samples>
+                        <resolution>1.0</resolution>
+                        <min_angle>-0.130899694</min_angle>
+                        <max_angle>0.130899694</max_angle>
+                      </horizontal>
+                      <vertical>
+                        <samples>5</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.130899694</min_angle>
+                        <max_angle>0.130899694</max_angle>
+                      </vertical>
+                    </scan>
+                  </ray>
+                  <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+                    <gaussianNoise>0.005</gaussianNoise>
+                    <alwaysOn>true</alwaysOn>
+                    <updateRate>5</updateRate>
+                    <topicName>$(arg ns)/${name}</topicName>
+                    <frameName>${name}_link</frameName>
+                    <fov>0.5</fov>
+                    <radiation>ultrasound</radiation>
+                  </plugin>
+            </sensor>
+        </gazebo>
+    </macro>
+
+    <macro name="sensor_hector_range" params="name linX linY linZ angR angP angY">
         <joint name="${name}_joint" type="fixed">
             <axis xyz="0 1 0" />
             <origin xyz="${linX} ${linY} ${linZ}" rpy="${angR} ${angP} ${angY}" />
