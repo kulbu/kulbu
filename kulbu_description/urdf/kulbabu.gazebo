@@ -29,7 +29,7 @@
         </plugin>
     </gazebo>
 
-    <gazebo>
+    <!--gazebo>
         <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
             <robotNamespace>$(arg ns)</robotNamespace>
             <alwaysOn>true</alwaysOn>
@@ -37,6 +37,6 @@
             <bumperTopicName>bumper0</bumperTopicName>
             <frameName>bumper_link</frameName>
         </plugin>
-    </gazebo>
+    </gazebo-->
 
 </robot>
