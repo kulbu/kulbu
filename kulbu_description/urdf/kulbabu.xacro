@@ -14,6 +14,11 @@
 
     <xacro:property name="casterRadius" value="0.015"/>
 
+    <xacro:property name="bumperHeight" value="0.020"/>
+    <xacro:property name="bumperLength" value="${0.70710678118*chassisLength}"/>
+    <xacro:property name="bumperWidth" value="${0.70710678118*chassisWidth}"/>
+    <xacro:property name="bumperMass" value="5"/>
+
     <arg name="gui" value="true"/>
 
     <xacro:include filename="$(find kulbu_description)/urdf/kulbabu.gazebo" />
@@ -89,35 +94,76 @@
         <child link="caster_link"/>
     </joint>
 
+    <link name='bumper_link'>
+        <collision name='bumper_collision'>
+            <origin xyz="${bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
+            <geometry>
+                <box size="${bumperLength} ${bumperWidth} ${bumperHeight}"/>
+            </geometry>
+
+            <surface>
+                <friction>
+                    <ode>
+                        <mu>0</mu>
+                        <mu2>0</mu2>
+                        <slip1>1.0</slip1>
+                        <slip2>1.0</slip2>
+                    </ode>
+                </friction>
+            </surface>
+        </collision>
+        <visual name='bumper_visual'>
+            <origin xyz="${bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
+            <geometry>
+                <box size="${bumperLength} ${bumperWidth} ${bumperHeight}"/>
+            </geometry>
+            <material name="yellow"/>
+        </visual>
+    </link>
+
+    <gazebo reference="bumper_link">
+        <mu1 value="0"/>
+        <mu2 value="0"/>
+        <kp  value="10000000.0" />
+        <kd  value="1.0" />
+        <fdir1 value="0 0 0"/>
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+
+    <joint name="bumper_joint" type="fixed">
+        <parent link="chassis_link"/>
+        <child link="bumper_link"/>
+    </joint>
+
     <!-- EffortJointInterface/VelocityJointInterface -->
-    <wheel fb="mid"   lr="left"  tX="0"  tY="1"   mu="0.3" interface="VelocityJointInterface" />
-    <wheel fb="mid"   lr="right" tX="0"  tY="-1"  mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="mid"   lr="left"  tX="0"  tY="0.75"   mu="0.3" interface="VelocityJointInterface" />
+    <wheel fb="mid"   lr="right" tX="0"  tY="-0.75"  mu="0.3" interface="VelocityJointInterface" />
 
     <!-- Range
     https://jsfiddle.net/MrYellow/2fdtnsbw/
-    -2.356194490 -135 -0.056568542494923796 -0.05656854249492381
-    -1.832595715 -105 -0.02070552360820167 -0.07727406610312547
-    -1.308996939 -75 0.02070552360820166 -0.07727406610312547
-    -0.785398163 -45 0.05656854249492381 -0.056568542494923796
-    -0.261799388 -15 0.07727406610312545 -0.020705523608201673
-    0.261799388 15 0.07727406610312547 0.02070552360820164
-    0.785398163 45 0.056568542494923824 0.05656854249492378
-    1.308996939 75 0.02070552360820171 0.07727406610312545
-    1.832595715 105 -0.02070552360820163 0.07727406610312547
-    2.356194490 135 -0.056568542494923796 0.05656854249492381
-    2.879793266 165 -0.07727406610312547 0.020705523608201645
-    3.403392041 195 -0.07727406610312545 -0.020705523608201694
+
+    -2.356194490 -135 -0.05126524163602469 -0.051265241636024694
+    -1.832595715 -105 -0.01876438076993276 -0.07002962240595745
+    -1.308996939 -75 0.018764380769932754 -0.07002962240595745
+    -0.785398163 -45 0.051265241636024694 -0.05126524163602469
+    -0.261799388 -15 0.07002962240595743 -0.018764380769932764
+    0.261799388 15 0.07002962240595745 0.018764380769932733
+    0.785398163 45 0.05126524163602471 0.051265241636024673
+    1.308996939 75 0.018764380769932802 0.07002962240595743
+    1.832595715 105 -0.01876438076993273 0.07002962240595746
+    2.356194490 135 -0.05126524163602469 0.051265241636024694
+    2.879793266 165 -0.07002962240595745 0.01876438076993274
     -->
-    <sensor_gazebo_range name="range_1l" linX="0.07727406610312547"  linY="0.02070552360820164" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="0.261799388" />
-    <sensor_gazebo_range name="range_2l" linX="0.056568542494923824" linY="0.05656854249492378" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="0.785398163" />
-    <sensor_gazebo_range name="range_3l" linX="0.02070552360820171"  linY="0.07727406610312545" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="1.308996939" />
-    <sensor_gazebo_range name="range_4l" linX="-0.02070552360820163" linY="0.07727406610312547" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="1.832595715" />
 
-    <sensor_gazebo_range name="range_1r" linX="0.07727406610312547"  linY="-0.02070552360820164" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-0.261799388" />
-    <sensor_gazebo_range name="range_2r" linX="0.056568542494923824" linY="-0.05656854249492378" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-0.785398163" />
-    <sensor_gazebo_range name="range_3r" linX="0.02070552360820171"  linY="-0.07727406610312545" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.308996939" />
-    <sensor_gazebo_range name="range_4r" linX="-0.02070552360820163" linY="-0.07727406610312547" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.832595715" />
+    <sensor_gazebo_range name="range_1l" linX="0.07002962240595745"   linY="0.018764380769932733"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="0.261799388" />
+    <sensor_gazebo_range name="range_2l" linX="0.05126524163602471"   linY="0.051265241636024673"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="0.785398163" />
+    <sensor_gazebo_range name="range_3l" linX="0.018764380769932802"  linY="0.07002962240595745"   linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="1.308996939" />
+    <sensor_gazebo_range name="range_4l" linX="-0.01876438076993273"  linY="0.07002962240595745"   linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="1.832595715" />
 
+    <sensor_gazebo_range name="range_1r" linX="0.07002962240595745"   linY="-0.018764380769932733" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-0.261799388" />
+    <sensor_gazebo_range name="range_2r" linX="0.05126524163602471"   linY="-0.051265241636024673" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-0.785398163" />
+    <sensor_gazebo_range name="range_3r" linX="0.018764380769932802"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.308996939" />
+    <sensor_gazebo_range name="range_4r" linX="-0.01876438076993273"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.832595715" />
 
     <!--sensor_bump name="bump_l" linX="${chassisLength/2}" linY="0.15"  linZ="${chassisHeight}" angR="0" angP="0" angY="0.785398163" /-->
     <!--sensor_bump name="bump_r" linX="${chassisLength/2}" linY="-0.15" linZ="${chassisHeight}" angR="0" angP="0" angY="-0.785398163" /-->

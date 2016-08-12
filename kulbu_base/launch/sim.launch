@@ -11,9 +11,6 @@
 
   <!-- TODO: Arg to enable broadcast of odom tf `diff_drive_controller.enable_odom_tf` -->
 
-  <!-- URDF robot description -->
-  <param name="$(arg ns)/robot_description" command="$(find xacro)/xacro.py '$(find kulbu_description)/urdf/$(arg robot).xacro' ns:=$(arg ns)" />
-
   <!-- Gazebo simulator -->
   <include if="$(arg use_gazebo)" file="$(find kulbu_gazebo)/launch/load_world.launch">
     <arg name="ns" value="$(arg ns)" />
@@ -21,9 +18,10 @@
     <arg name="robot" value="$(arg robot)" />
   </include>
 
-  <!-- ROS control -->
-  <include file="$(find kulbu_control)/launch/kulbu_control.launch">
+  <!-- Spawn robot -->
+  <include file="$(find kulbu_gazebo)/launch/spawn_robot.launch">
     <arg name="ns" value="$(arg ns)" />
+    <arg name="robot" value="$(arg robot)" />
     <arg name="use_ekf" value="$(arg use_ekf)" />
     <arg name="use_twowheels" value="$(arg use_twowheels)" />
   </include>
