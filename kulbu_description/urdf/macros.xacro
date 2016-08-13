@@ -233,7 +233,7 @@
                 <geometry>
                     <box size="0.01 0.10 0.01" />
                 </geometry>
-                <material name="blue" />
+                <material name="yellow" />
             </visual>
 
             <inertial>
@@ -243,8 +243,8 @@
             </inertial>
         </link>
 
-        <gazebo reference="${name}_link">
-            <material>Gazebo/Blue</material>
+        <!--gazebo reference="${name}_link">
+            <material>Gazebo/Yellow</material>
             <sensor type="contact" name="${name}_sensor">
                 <always_on>true</always_on>
                 <update_rate>15.0</update_rate>
@@ -256,7 +256,7 @@
                     <frameName>${name}_link</frameName>
                 </plugin>
             </sensor>
-        </gazebo>
+        </gazebo-->
     </macro>
 
 </robot>

@@ -29,20 +29,18 @@
         </plugin>
     </gazebo>
 
-    <gazebo reference="bumper">
+    <!--gazebo reference="bumper_link">
         <sensor name="bumper_contact_sensor" type="contact">
-            <robotNamespace>$(arg ns)</robotNamespace>
             <always_on>true</always_on>
             <update_rate>30.0</update_rate>
             <contact>
                 <collision>collision</collision>
             </contact>
             <plugin name="gazebo_ros_bumper_controller" filename="libgazebo_ros_bumper.so">
-                <robotNamespace>$(arg ns)</robotNamespace>
-                <bumperTopicName>bumper_contact_sensor_state</bumperTopicName>
+                <bumperTopicName>bumper</bumperTopicName>
                 <frameName>bumper_link</frameName>
             </plugin>
         </sensor>
-    </gazebo>
+    </gazebo-->
 
 </robot>
