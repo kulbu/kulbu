@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<robot name="goal" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:property name="PI" value="3.1415926535897931"/>
+
+    <xacro:property name="chassisHeight" value="0.25"/>
+    <xacro:property name="chassisLength" value="0.25"/>
+    <xacro:property name="chassisWidth" value="0.25"/>
+    <xacro:property name="chassisMass" value="25"/>
+
+    <arg name="gui" value="true"/>
+
+    <xacro:include filename="$(find kulbu_description)/urdf/materials.xacro" />
+    <xacro:include filename="$(find kulbu_description)/urdf/macros.xacro" />
+
+    <link name="base_link" />
+
+    <joint name="base_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="chassis_link"/>
+    </joint>
+
+    <link name='chassis_link'>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+            </geometry>
+            <material name="green"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${chassisMass}"/>
+            <box_inertia m="${chassisMass}" x="${chassisLength}" y="${chassisWidth}" z="${chassisHeight}"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="chassis_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+</robot>
