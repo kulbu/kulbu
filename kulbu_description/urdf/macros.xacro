@@ -87,7 +87,7 @@
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <box size="0.0 0.0 0.0" />
+                    <box size="0.015 0.015 0.045" />
                 </geometry>
             </collision>
 
@@ -132,7 +132,8 @@
                       </vertical>
                     </scan>
                   </ray>
-                  <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range">
+                  <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range_${name}">
+                    <robotNamespace>$(arg ns)</robotNamespace>
                     <gaussianNoise>0.005</gaussianNoise>
                     <alwaysOn>true</alwaysOn>
                     <updateRate>5</updateRate>
