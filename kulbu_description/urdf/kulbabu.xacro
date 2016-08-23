@@ -19,7 +19,7 @@
     <xacro:property name="bumperWidth" value="${0.70710678118*chassisWidth}"/>
     <xacro:property name="bumperMass" value="5"/>
 
-    <arg name="gui" value="true"/>
+    <xacro:arg name="gui" default="true"/>
 
     <xacro:include filename="$(find kulbu_description)/urdf/kulbabu.gazebo" />
     <xacro:include filename="$(find kulbu_description)/urdf/materials.xacro" />

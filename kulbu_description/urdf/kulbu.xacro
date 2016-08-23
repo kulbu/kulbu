@@ -15,7 +15,7 @@
     <xacro:property name="cameraSize" value="0.05"/>
     <xacro:property name="cameraMass" value="0.1"/>
 
-    <arg name="gui" value="true"/>
+    <xacro:arg name="gui" value="true"/>
 
     <xacro:include filename="$(find kulbu_description)/urdf/kulbu.gazebo" />
     <xacro:include filename="$(find kulbu_description)/urdf/materials.xacro" />

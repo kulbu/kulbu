@@ -7,7 +7,7 @@
     <xacro:property name="chassisWidth" value="0.25"/>
     <xacro:property name="chassisMass" value="25"/>
 
-    <arg name="gui" value="true"/>
+    <xacro:arg name="gui" default="true"/>
 
     <xacro:include filename="$(find kulbu_description)/urdf/materials.xacro" />
     <xacro:include filename="$(find kulbu_description)/urdf/macros.xacro" />

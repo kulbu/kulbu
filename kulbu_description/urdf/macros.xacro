@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <robot name="kulbu" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <macro name="cylinder_inertia" params="m r h">
+    <xacro:macro name="cylinder_inertia" params="m r h">
         <inertia  ixx="${m*(3*r*r+h*h)/12}" ixy="0" ixz="0"
           iyy="${m*(3*r*r+h*h)/12}" iyz="0"
           izz="${m*r*r/2}"
         />
-    </macro>
+    </xacro:macro>
 
-    <macro name="box_inertia" params="m x y z">
+    <xacro:macro name="box_inertia" params="m x y z">
         <inertia  ixx="${m*(y*y+z*z)/12}" ixy="0" ixz="0"
           iyy="${m*(x*x+z*z)/12}" iyz="0"
           izz="${m*(x*x+z*z)/12}"
         />
-    </macro>
+    </xacro:macro>
 
-    <macro name="sphere_inertia" params="m r">
+    <xacro:macro name="sphere_inertia" params="m r">
         <inertia  ixx="${2*m*r*r/5}" ixy="0" ixz="0"
           iyy="${2*m*r*r/5}" iyz="0"
           izz="${2*m*r*r/5}"
         />
-    </macro>
+    </xacro:macro>
 
-    <macro name="wheel" params="fb lr tX tY mu interface">
+    <xacro:macro name="wheel" params="fb lr tX tY mu interface">
         <link name="${fb}_${lr}_wheel">
           <collision>
               <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
@@ -73,9 +73,9 @@
             </joint>
         </transmission>
 
-    </macro>
+    </xacro:macro>
 
-    <macro name="sensor_gazebo_range" params="name linX linY linZ angR angP angY">
+    <xacro:macro name="sensor_gazebo_range" params="name linX linY linZ angR angP angY">
         <joint name="${name}_joint" type="fixed">
             <axis xyz="0 1 0" />
             <origin xyz="${linX} ${linY} ${linZ}" rpy="${angR} ${angP} ${angY}" />
@@ -143,9 +143,9 @@
                   </plugin>
             </sensor>
         </gazebo>
-    </macro>
+    </xacro:macro>
 
-    <macro name="sensor_hector_range" params="name linX linY linZ angR angP angY">
+    <xacro:macro name="sensor_hector_range" params="name linX linY linZ angR angP angY">
         <joint name="${name}_joint" type="fixed">
             <axis xyz="0 1 0" />
             <origin xyz="${linX} ${linY} ${linZ}" rpy="${angR} ${angP} ${angY}" />
@@ -208,10 +208,10 @@
                 </plugin>
             </sensor>
         </gazebo>
-    </macro>
+    </xacro:macro>
 
     <!-- FIXME: Fails unless connected to world frame, I think... -->
-    <macro name="sensor_bump" params="name linX linY linZ angR angP angY">
+    <xacro:macro name="sensor_bump" params="name linX linY linZ angR angP angY">
         <!-- TODO: Macro these reusable joint templates -->
         <joint name="${name}_joint" type="fixed">
             <axis xyz="0 1 0" />
@@ -257,6 +257,6 @@
                 </plugin>
             </sensor>
         </gazebo-->
-    </macro>
+    </xacro:macro>
 
 </robot>
