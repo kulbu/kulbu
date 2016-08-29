@@ -156,14 +156,14 @@
     -->
 
     <sensor_gazebo_range name="range_1l" linX="0.07002962240595745"   linY="0.018764380769932733"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="0.261799388" />
-    <!--sensor_gazebo_range name="range_2l" linX="0.05126524163602471"   linY="0.051265241636024673"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="0.785398163" />
+    <sensor_gazebo_range name="range_2l" linX="0.05126524163602471"   linY="0.051265241636024673"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="0.785398163" />
     <sensor_gazebo_range name="range_3l" linX="0.018764380769932802"  linY="0.07002962240595745"   linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="1.308996939" />
     <sensor_gazebo_range name="range_4l" linX="-0.01876438076993273"  linY="0.07002962240595745"   linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="1.832595715" />
 
     <sensor_gazebo_range name="range_1r" linX="0.07002962240595745"   linY="-0.018764380769932733" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-0.261799388" />
     <sensor_gazebo_range name="range_2r" linX="0.05126524163602471"   linY="-0.051265241636024673" linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-0.785398163" />
     <sensor_gazebo_range name="range_3r" linX="0.018764380769932802"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.308996939" />
-    <sensor_gazebo_range name="range_4r" linX="-0.01876438076993273"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.832595715" /-->
+    <sensor_gazebo_range name="range_4r" linX="-0.01876438076993273"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.832595715" />
 
     <!--sensor_bump name="bump_l" linX="${0.045+chassisLength/4}" linY="${chassisLength/4}"  linZ="${chassisHeight/2}" angR="0" angP="0" angY="${45*(PI/180)}" />
     <sensor_bump name="bump_r" linX="${0.045+chassisLength/4}" linY="-${chassisLength/4}" linZ="${chassisHeight/2}" angR="0" angP="0" angY="-${45*(PI/180)}" /-->
