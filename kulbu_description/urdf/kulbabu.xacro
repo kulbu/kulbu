@@ -165,11 +165,11 @@
     <sensor_gazebo_range name="range_3r" linX="0.018764380769932802"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.308996939" />
     <sensor_gazebo_range name="range_4r" linX="-0.01876438076993273"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.832595715" />
 
-    <!--sensor_bump name="bump_l" linX="${0.045+chassisLength/4}" linY="${chassisLength/4}"  linZ="${chassisHeight/2}" angR="0" angP="0" angY="${45*(PI/180)}" />
-    <sensor_bump name="bump_r" linX="${0.045+chassisLength/4}" linY="-${chassisLength/4}" linZ="${chassisHeight/2}" angR="0" angP="0" angY="-${45*(PI/180)}" /-->
+    <sensor_bump name="bump_l" linX="${0.045+chassisLength/4}" linY="${chassisLength/4}"  linZ="${chassisHeight/2}" angR="0" angP="0" angY="${45*(PI/180)}" />
+    <sensor_bump name="bump_r" linX="${0.045+chassisLength/4}" linY="-${chassisLength/4}" linZ="${chassisHeight/2}" angR="0" angP="0" angY="-${45*(PI/180)}" />
 
     <!-- IMU -->
-    <joint name="imu_joint" type="fixed">
+    <!--joint name="imu_joint" type="fixed">
         <axis xyz="0 1 0" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <parent link="chassis_link"/>
@@ -197,6 +197,6 @@
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
         </inertial>
-    </link>
+    </link-->
 
 </robot>

@@ -132,7 +132,7 @@
                       </vertical>
                     </scan>
                   </ray>
-                  <plugin filename="libgazebo_ros_range.so" name="gazebo_ros_range_${name}">
+                  <plugin name="gazebo_ros_range_${name}" filename="libgazebo_ros_range.so">
                     <robotNamespace>$(arg ns)</robotNamespace>
                     <gaussianNoise>0.005</gaussianNoise>
                     <alwaysOn>true</alwaysOn>
@@ -203,6 +203,7 @@
                     </scan>
                 </ray>
                 <plugin name="gazebo_ros_sonar_${name}_controller" filename="libhector_gazebo_ros_sonar.so">
+                    <robotNamespace>$(arg ns)</robotNamespace>
                     <gaussianNoise>0.000</gaussianNoise>
                     <topicName>$(arg ns)/${name}</topicName>
                     <frameId>${name}_link</frameId>
@@ -244,7 +245,7 @@
             </inertial>
         </link>
 
-        <!--gazebo reference="${name}_link">
+        <gazebo reference="${name}_link">
             <material>Gazebo/Yellow</material>
             <sensor type="contact" name="${name}_sensor">
                 <always_on>true</always_on>
@@ -253,11 +254,12 @@
                     <collision>${name}_link_collision</collision>
                 </contact>
                 <plugin name="gazebo_ros_bumper_${name}" filename="libgazebo_ros_bumper.so">
+                    <robotNamespace>$(arg ns)</robotNamespace>
                     <bumperTopicName>$(arg ns)/${name}</bumperTopicName>
                     <frameName>${name}_link</frameName>
                 </plugin>
             </sensor>
-        </gazebo-->
+        </gazebo>
     </xacro:macro>
 
 </robot>

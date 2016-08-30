@@ -45,6 +45,11 @@ roslaunch kulbu_base sim.launch
 roslaunch kulbu_base real.launch
 rosrun turtlebot_teleop turtlebot_teleop_key /turtlebot_teleop/cmd_vel:=/kulbu/diff_drive_controller/cmd_vel
 ```
+### Kulbabu
+
+```
+roslaunch kulbu_base sim.launch use_ekf:=false use_twowheels:=true robot:=kulbabu ns:=kulbabu0 world:=rat1
+```
 
 ### Navigation
 
