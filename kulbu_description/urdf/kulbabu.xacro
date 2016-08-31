@@ -5,19 +5,20 @@
     <xacro:property name="chassisHeight" value="0.060"/>
     <xacro:property name="chassisLength" value="0.160"/>
     <xacro:property name="chassisWidth" value="0.160"/>
-    <xacro:property name="chassisMass" value="50"/>
+    <xacro:property name="chassisMass" value="10"/>
 
     <xacro:property name="wheelWidth" value="0.025"/>
     <xacro:property name="wheelRadius" value="0.030"/>
     <xacro:property name="wheelPos" value="0.2"/>
-    <xacro:property name="wheelMass" value="5"/>
+    <xacro:property name="wheelMass" value="2"/>
 
     <xacro:property name="casterRadius" value="0.015"/>
+    <xacro:property name="casterMass" value="1"/>
 
     <xacro:property name="bumperHeight" value="0.020"/>
     <xacro:property name="bumperLength" value="${0.70710678118*chassisLength}"/>
     <xacro:property name="bumperWidth" value="${0.70710678118*chassisWidth}"/>
-    <xacro:property name="bumperMass" value="5"/>
+    <xacro:property name="bumperMass" value="0.5"/>
 
     <xacro:arg name="gui" default="true"/>
 
@@ -47,7 +48,7 @@
             <material name="orange"/>
         </visual>
         <inertial>
-            <origin xyz="${-chassisLength/8} 0 ${-0.015+wheelRadius+chassisHeight/2}" rpy="0 0 0"/>
+            <origin xyz="0 0 ${-0.015+wheelRadius+chassisHeight/2}" rpy="0 0 0"/>
             <mass value="${chassisMass}"/>
             <cylinder_inertia m="${chassisMass}" r="${chassisLength/2}" h="${chassisHeight}"/>
         </inertial>
@@ -78,23 +79,19 @@
             </geometry>
             <material name="green"/>
         </visual>
+        <inertial>
+            <origin xyz="${casterRadius-chassisLength/2} 0 ${wheelRadius-casterRadius}" rpy="0 0 0" />
+            <mass value="${casterMass}"/>
+            <sphere_inertia m="${casterMass}" r="${casterRadius}"/>
+        </inertial>
     </link>
-
-    <gazebo reference="caster_link">
-        <mu1 value="0"/>
-        <mu2 value="0"/>
-        <kp  value="10000000.0" />
-        <kd  value="1.0" />
-        <fdir1 value="0 0 0"/>
-        <material>Gazebo/Green</material>
-    </gazebo>
 
     <joint name="caster_joint" type="fixed">
         <parent link="chassis_link"/>
         <child link="caster_link"/>
     </joint>
 
-    <!--link name='bumper_link'>
+    <link name='bumper_link'>
         <collision name='bumper_collision'>
             <origin xyz="${bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
             <geometry>
@@ -119,21 +116,17 @@
             </geometry>
             <material name="yellow"/>
         </visual>
+        <inertial>
+            <origin xyz="${bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
+            <mass value="${bumperMass}"/>
+            <box_inertia m="${bumperMass}" x="${bumperLength/2}" y="${bumperLength/2}" z="${bumperHeight/2}"/>
+        </inertial>
     </link>
-
-    <gazebo reference="bumper_link">
-        <mu1 value="0"/>
-        <mu2 value="0"/>
-        <kp  value="10000000.0" />
-        <kd  value="1.0" />
-        <fdir1 value="0 0 0"/>
-        <material>Gazebo/Yellow</material>
-    </gazebo>
 
     <joint name="bumper_joint" type="fixed">
         <parent link="chassis_link"/>
         <child link="bumper_link"/>
-    </joint-->
+    </joint>
 
     <!-- EffortJointInterface/VelocityJointInterface -->
     <wheel fb="mid"   lr="left"  tX="0"  tY="0.75"   mu="0.3" interface="VelocityJointInterface" />
@@ -165,8 +158,8 @@
     <sensor_gazebo_range name="range_3r" linX="0.018764380769932802"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.308996939" />
     <sensor_gazebo_range name="range_4r" linX="-0.01876438076993273"  linY="-0.07002962240595745"  linZ="${0.045+wheelRadius+chassisHeight/2}" angR="0" angP="0" angY="-1.832595715" />
 
-    <sensor_bump name="bump_l" linX="${0.045+chassisLength/4}" linY="${chassisLength/4}"  linZ="${chassisHeight/2}" angR="0" angP="0" angY="${45*(PI/180)}" />
-    <sensor_bump name="bump_r" linX="${0.045+chassisLength/4}" linY="-${chassisLength/4}" linZ="${chassisHeight/2}" angR="0" angP="0" angY="-${45*(PI/180)}" />
+    <!--sensor_bump name="bump_l" linX="${0.045+chassisLength/4}" linY="${chassisLength/4}"  linZ="${chassisHeight/2}" angR="0" angP="0" angY="${45*(PI/180)}" />
+    <sensor_bump name="bump_r" linX="${0.045+chassisLength/4}" linY="-${chassisLength/4}" linZ="${chassisHeight/2}" angR="0" angP="0" angY="-${45*(PI/180)}" /-->
 
     <!-- IMU -->
     <!--joint name="imu_joint" type="fixed">

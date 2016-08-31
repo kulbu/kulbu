@@ -4,6 +4,14 @@
         <material>Gazebo/Orange</material>
     </gazebo>
 
+    <gazebo reference="caster_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+    <gazebo reference="bumper_link">
+        <material>Gazebo/Yellow</material>
+    </gazebo>
+
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>$(arg ns)</robotNamespace>

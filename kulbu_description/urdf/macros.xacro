@@ -28,6 +28,16 @@
               <geometry>
                   <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
               </geometry>
+              <surface>
+                <friction>
+                    <ode>
+                        <mu>1000000</mu>
+                        <mu2>100</mu2>
+                        <slip1>0</slip1>
+                        <slip2>0</slip2>
+                    </ode>
+                </friction>
+              </surface>
           </collision>
 
           <visual>
@@ -46,11 +56,11 @@
         </link>
 
         <gazebo reference="${fb}_${lr}_wheel">
-            <mu1 value="${mu}"/>
+            <!--mu1 value="${mu}"/>
             <mu2 value="${mu}"/>
             <kp  value="10000000.0" />
             <kd  value="1.0" />
-            <fdir1 value="0 0 0"/>
+            <fdir1 value="0 0 0"/-->
             <material>Gazebo/Black</material>
         </gazebo>
 
@@ -252,7 +262,7 @@
                 <update_rate>15.0</update_rate>
                 <contact>
                     <collision>${name}_link_collision</collision>
-                    <!--topic>${name}_link_collision</topic-->
+                    <!--topic>${name}_link</topic-->
                 </contact>
                 <plugin name="gazebo_ros_bumper_${name}" filename="libgazebo_ros_bumper.so">
                     <robotNamespace>$(arg ns)</robotNamespace>
