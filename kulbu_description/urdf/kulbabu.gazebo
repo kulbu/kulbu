@@ -11,15 +11,13 @@
     </gazebo>
 
     <!-- Hector IMU -->
-    <gazebo>
+    <!--gazebo>
         <plugin name="quadrotor_imu_sim0" filename="libhector_gazebo_ros_imu.so">
             <robotNamespace>$(arg ns)</robotNamespace>
             <updateRate>50.0</updateRate>
             <bodyName>imu_link</bodyName>
             <frameId>imu_link</frameId>
             <topicName>imu0</topicName>
-            <rpyOffsets>0 0 0</rpyOffsets> <!-- deprecated -->
-            <gaussianNoise>0</gaussianNoise>  <!-- deprecated -->
             <accelDrift>0.5 0.5 0.5</accelDrift>
             <accelGaussianNoise>0.35 0.35 0.3</accelGaussianNoise>
             <rateDrift>0.1 0.1 0.1</rateDrift>
@@ -27,7 +25,7 @@
             <headingDrift>0.1</headingDrift>
             <headingGaussianNoise>0.05</headingGaussianNoise>
         </plugin>
-    </gazebo>
+    </gazebo-->
 
     <!--gazebo reference="bumper_link">
         <sensor name="bumper_contact_sensor" type="contact">

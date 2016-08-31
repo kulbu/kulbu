@@ -137,7 +137,7 @@
                     <gaussianNoise>0.005</gaussianNoise>
                     <alwaysOn>true</alwaysOn>
                     <updateRate>5</updateRate>
-                    <topicName>$(arg ns)/${name}</topicName>
+                    <topicName>${name}</topicName>
                     <frameName>${name}_link</frameName>
                     <fov>0.5</fov>
                     <radiation>ultrasound</radiation>
@@ -252,10 +252,11 @@
                 <update_rate>15.0</update_rate>
                 <contact>
                     <collision>${name}_link_collision</collision>
+                    <!--topic>${name}_link_collision</topic-->
                 </contact>
                 <plugin name="gazebo_ros_bumper_${name}" filename="libgazebo_ros_bumper.so">
                     <robotNamespace>$(arg ns)</robotNamespace>
-                    <bumperTopicName>$(arg ns)/${name}</bumperTopicName>
+                    <bumperTopicName>${name}</bumperTopicName>
                     <frameName>${name}_link</frameName>
                 </plugin>
             </sensor>
