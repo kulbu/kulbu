@@ -33,7 +33,7 @@
         <child link="chassis_link"/>
     </joint>
 
-    <link name='chassis_link'>
+    <link name="chassis_link">
         <collision>
             <origin xyz="0 0 ${-0.015+wheelRadius+chassisHeight/2}" rpy="0 0 0"/>
             <geometry>
@@ -59,8 +59,8 @@
         <child link="caster_link"/>
     </joint>
 
-    <link name='caster_link'>
-        <collision name='caster_collision'>
+    <link name="caster_link">
+        <collision name="caster_collision">
             <origin xyz="${casterRadius-chassisLength/2} 0 ${wheelRadius-casterRadius}" rpy="0 0 0" />
             <geometry>
                 <sphere radius="${casterRadius}" />
@@ -83,7 +83,7 @@
                 </friction>
             </surface>
         </collision>
-        <visual name='caster_visual'>
+        <visual name="caster_visual">
             <origin xyz="${casterRadius-chassisLength/2} 0 ${wheelRadius-casterRadius}" rpy="0 0 0" />
             <geometry>
                 <sphere radius="${casterRadius}" />
@@ -102,8 +102,8 @@
         <child link="bumper_link"/>
     </joint>
 
-    <link name='bumper_link'>
-        <collision name='bumper_collision'>
+    <link name="bumper_link">
+        <collision name="bumper_collision">
             <origin xyz="${0.015+bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
             <geometry>
                 <box size="${bumperLength} ${bumperWidth} ${bumperHeight}"/>
@@ -126,7 +126,7 @@
                 </friction>
             </surface>
         </collision>
-        <visual name='bumper_visual'>
+        <visual name="bumper_visual">
             <origin xyz="${0.015+bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
             <geometry>
                 <box size="${bumperLength} ${bumperWidth} ${bumperHeight}"/>
