@@ -62,6 +62,12 @@
             </geometry>
 
             <surface>
+                <!--contact>
+                    <ode>
+                        <kp>1e+08</kp>
+                        <kd>10000</kd>
+                    </ode>
+                </contact-->
                 <friction>
                     <ode>
                         <mu>0</mu>
@@ -93,12 +99,18 @@
 
     <link name='bumper_link'>
         <collision name='bumper_collision'>
-            <origin xyz="${bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
+            <origin xyz="${0.015+bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
             <geometry>
                 <box size="${bumperLength} ${bumperWidth} ${bumperHeight}"/>
             </geometry>
 
             <surface>
+                <!--contact>
+                    <ode>
+                        <kp>1e+08</kp>
+                        <kd>10000</kd>
+                    </ode>
+                </contact-->
                 <friction>
                     <ode>
                         <mu>0</mu>
@@ -110,14 +122,14 @@
             </surface>
         </collision>
         <visual name='bumper_visual'>
-            <origin xyz="${bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
+            <origin xyz="${0.015+bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
             <geometry>
                 <box size="${bumperLength} ${bumperWidth} ${bumperHeight}"/>
             </geometry>
             <material name="yellow"/>
         </visual>
         <inertial>
-            <origin xyz="${bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
+            <origin xyz="${0.015+bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
             <mass value="${bumperMass}"/>
             <box_inertia m="${bumperMass}" x="${bumperLength/2}" y="${bumperLength/2}" z="${bumperHeight/2}"/>
         </inertial>

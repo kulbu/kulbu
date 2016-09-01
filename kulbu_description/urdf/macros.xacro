@@ -23,46 +23,49 @@
 
     <xacro:macro name="wheel" params="fb lr tX tY mu interface">
         <link name="${fb}_${lr}_wheel">
-          <collision>
-              <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
-              <geometry>
-                  <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
-              </geometry>
-              <surface>
-                <friction>
-                    <ode>
-                        <mu>1000000</mu>
-                        <mu2>100</mu2>
-                        <slip1>0</slip1>
-                        <slip2>0</slip2>
-                    </ode>
-                </friction>
-              </surface>
-          </collision>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
+                <geometry>
+                    <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+                </geometry>
+                <surface>
+                    <!--contact>
+                        <ode>
+                            <kp>1e+08</kp>
+                            <kd>10000</kd>
+                        </ode>
+                    </contact-->
+                    <friction>
+                        <ode>
+                            <mu>1000000</mu>
+                            <mu2>100</mu2>
+                            <slip1>0</slip1>
+                            <slip2>0</slip2>
+                        </ode>
+                    </friction>
+                </surface>
+            </collision>
 
-          <visual>
-              <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
-              <geometry>
-                  <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
-              </geometry>
-              <material name="black"/>
-          </visual>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
+                <geometry>
+                    <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
 
-          <inertial>
-              <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
-              <mass value="${wheelMass}"/>
-              <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}"/>
-          </inertial>
+            <inertial>
+                <origin xyz="0 0 0" rpy="0 ${PI/2} ${PI/2}" />
+                <mass value="${wheelMass}"/>
+                <cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}"/>
+            </inertial>
         </link>
 
         <gazebo reference="${fb}_${lr}_wheel">
-            <!--mu1 value="${mu}"/>
-            <mu2 value="${mu}"/>
-            <kp  value="10000000.0" />
-            <kd  value="1.0" />
-            <fdir1 value="0 0 0"/-->
+            <!--mu1>1000000.0</mu1>
+            <mu2>100.0</mu2>
             <kp>1000000.0</kp>
-            <kd>1.0</kd>
+            <kd>1.0</kd-->
             <material>Gazebo/Black</material>
         </gazebo>
 
