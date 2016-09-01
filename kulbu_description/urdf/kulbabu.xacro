@@ -60,19 +60,18 @@
     </joint>
 
     <link name="caster_link">
-        <collision name="caster_collision">
+        <collision>
             <origin xyz="${casterRadius-chassisLength/2} 0 ${wheelRadius-casterRadius}" rpy="0 0 0" />
             <geometry>
                 <sphere radius="${casterRadius}" />
             </geometry>
-
             <surface>
-                <!--contact>
+                <contact>
                     <ode>
                         <kp>1e+08</kp>
                         <kd>10000</kd>
                     </ode>
-                </contact-->
+                </contact>
                 <friction>
                     <ode>
                         <mu>0</mu>
@@ -83,7 +82,7 @@
                 </friction>
             </surface>
         </collision>
-        <visual name="caster_visual">
+        <visual>
             <origin xyz="${casterRadius-chassisLength/2} 0 ${wheelRadius-casterRadius}" rpy="0 0 0" />
             <geometry>
                 <sphere radius="${casterRadius}" />
@@ -103,19 +102,19 @@
     </joint>
 
     <link name="bumper_link">
-        <collision name="bumper_collision">
+        <collision>
             <origin xyz="${0.015+bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
             <geometry>
                 <box size="${bumperLength} ${bumperWidth} ${bumperHeight}"/>
             </geometry>
 
             <surface>
-                <!--contact>
+                <contact>
                     <ode>
                         <kp>1e+08</kp>
                         <kd>10000</kd>
                     </ode>
-                </contact-->
+                </contact>
                 <friction>
                     <ode>
                         <mu>0</mu>
@@ -126,7 +125,7 @@
                 </friction>
             </surface>
         </collision>
-        <visual name="bumper_visual">
+        <visual>
             <origin xyz="${0.015+bumperLength-chassisLength/2} 0 ${wheelRadius+bumperHeight/2}" rpy="0 0 ${45*(PI/180)}" />
             <geometry>
                 <box size="${bumperLength} ${bumperWidth} ${bumperHeight}"/>

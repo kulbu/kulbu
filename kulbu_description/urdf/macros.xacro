@@ -29,12 +29,12 @@
                     <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
                 </geometry>
                 <surface>
-                    <!--contact>
+                    <contact>
                         <ode>
                             <kp>1e+08</kp>
                             <kd>10000</kd>
                         </ode>
-                    </contact-->
+                    </contact>
                     <friction>
                         <ode>
                             <mu>1000000</mu>
