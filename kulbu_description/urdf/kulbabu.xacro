@@ -54,6 +54,11 @@
         </inertial>
     </link>
 
+    <joint name="caster_joint" type="fixed">
+        <parent link="chassis_link"/>
+        <child link="caster_link"/>
+    </joint>
+
     <link name='caster_link'>
         <collision name='caster_collision'>
             <origin xyz="${casterRadius-chassisLength/2} 0 ${wheelRadius-casterRadius}" rpy="0 0 0" />
@@ -92,9 +97,9 @@
         </inertial>
     </link>
 
-    <joint name="caster_joint" type="fixed">
+    <joint name="bumper_joint" type="fixed">
         <parent link="chassis_link"/>
-        <child link="caster_link"/>
+        <child link="bumper_link"/>
     </joint>
 
     <link name='bumper_link'>
@@ -134,11 +139,6 @@
             <box_inertia m="${bumperMass}" x="${bumperLength/2}" y="${bumperLength/2}" z="${bumperHeight/2}"/>
         </inertial>
     </link>
-
-    <joint name="bumper_joint" type="fixed">
-        <parent link="chassis_link"/>
-        <child link="bumper_link"/>
-    </joint>
 
     <!-- EffortJointInterface/VelocityJointInterface -->
     <wheel fb="mid"   lr="left"  tX="0"  tY="0.75"   mu="0.3" interface="VelocityJointInterface" />
