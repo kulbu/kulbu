@@ -2,9 +2,9 @@
 <robot name="goal" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:property name="PI" value="3.1415926535897931"/>
 
-    <xacro:property name="chassisHeight" value="0.25"/>
-    <xacro:property name="chassisLength" value="0.25"/>
-    <xacro:property name="chassisWidth" value="0.25"/>
+    <xacro:property name="chassisHeight" value="0.1"/>
+    <xacro:property name="chassisLength" value="0.1"/>
+    <xacro:property name="chassisWidth" value="0.1"/>
     <xacro:property name="chassisMass" value="25"/>
 
     <xacro:arg name="gui" default="true"/>
