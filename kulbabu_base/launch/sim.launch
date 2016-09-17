@@ -1,0 +1,32 @@
+<launch>
+  <!-- Unique Robot name -->
+  <arg name="ns" default="/kulbabu" />
+  <arg name="world" default="default" />
+  <arg name="robot" default="kulbabu" />
+
+  <arg name="use_gazebo"    default="true" />
+  <arg name="use_ekf"       default="true" />
+  <arg name="use_twowheels" default="false" />
+  <arg name="publish_tf"    default="false" />
+
+  <!-- TODO: Arg to enable broadcast of odom tf `diff_drive_controller.enable_odom_tf` -->
+
+  <!-- Gazebo simulator -->
+  <include if="$(arg use_gazebo)" file="$(find kulbu_gazebo)/launch/load_world.launch">
+    <arg name="ns" value="$(arg ns)" />
+    <arg name="world" value="$(arg world)" />
+    <arg name="robot" value="$(arg robot)" />
+  </include>
+
+  <!-- Spawn robot -->
+  <include file="$(find kulbu_gazebo)/launch/spawn_robot.launch">
+    <arg name="ns" value="$(arg ns)" />
+    <arg name="robot" value="$(arg robot)" />
+    <arg name="use_ekf" value="$(arg use_ekf)" />
+    <arg name="use_twowheels" value="$(arg use_twowheels)" />
+  </include>
+
+  <!-- Fix `base_link` frame to `map`. -->
+  <node if="$(arg publish_tf)" pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 map base_link 100" />
+
+</launch>
