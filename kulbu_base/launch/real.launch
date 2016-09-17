@@ -1,13 +1,19 @@
 <launch>
-  <!-- Unique Robot name -->
-  <arg name="ns" default="/kulbu" />
-  <arg name="world" default="default"/>
+    <!-- Unique Robot name -->
+    <arg name="ns" default="/kulbu" />
+    <arg name="world" default="default" />
+    <arg name="robot" default="kulbu" />
 
-  <arg name="use_wheels" default="true" />
-  <arg name="use_openni" default="true" />
+    <arg name="use_gazebo"    default="false" />
+    <arg name="use_ekf"       default="true" />
+    <arg name="use_twowheels" default="false" />
+    <arg name="publish_tf"    default="false" />
+
+    <arg name="use_wheels" default="true" />
+    <arg name="use_openni" default="true" />
 
   <!-- URDF robot description -->
-  <param name="$(arg ns)/robot_description" command="$(find xacro)/xacro.py '$(find kulbu_description)/urdf/kulbu.xacro' ns:=$(arg ns)" />
+  <param name="$(arg ns)/robot_description" command="$(find xacro)/xacro.py '$(find kulbu_description)/urdf/$(arg robot).xacro' ns:=$(arg ns)" />
 
   <!-- Real hardware (wheels) -->
   <include if="$(arg use_wheels)" file="$(find kulbu_hardware)/launch/kulbu_hardware.launch">

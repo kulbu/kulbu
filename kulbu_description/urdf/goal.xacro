@@ -23,20 +23,20 @@
         <collision>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+                <sphere radius="${chassisLength}"/>
             </geometry>
         </collision>
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+                <sphere radius="${chassisLength}"/>
             </geometry>
             <material name="green"/>
         </visual>
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0"/>
             <mass value="${chassisMass}"/>
-            <box_inertia m="${chassisMass}" x="${chassisLength}" y="${chassisWidth}" z="${chassisHeight}"/>
+            <sphere_inertia m="${chassisMass}" r="${chassisLength}"/>
         </inertial>
     </link>
 

@@ -4,10 +4,10 @@
   <arg name="world" default="default" />
   <arg name="robot" default="kulbu" />
 
-  <arg name="use_gazebo" default="true" />
-  <arg name="use_ekf"    default="true" />
+  <arg name="use_gazebo"    default="true" />
+  <arg name="use_ekf"       default="true" />
   <arg name="use_twowheels" default="false" />
-  <arg name="publish_tf" default="false" />
+  <arg name="publish_tf"    default="false" />
 
   <!-- TODO: Arg to enable broadcast of odom tf `diff_drive_controller.enable_odom_tf` -->
 
