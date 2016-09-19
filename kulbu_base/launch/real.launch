@@ -6,7 +6,6 @@
 
     <arg name="use_gazebo"    default="false" />
     <arg name="use_ekf"       default="true" />
-    <arg name="use_twowheels" default="false" />
     <arg name="publish_tf"    default="false" />
 
     <arg name="use_wheels" default="true" />

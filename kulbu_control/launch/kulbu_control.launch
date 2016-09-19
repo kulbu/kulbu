@@ -9,11 +9,6 @@
     <rosparam file="$(find kulbu_control)/config/control_velocity.yaml" command="load" />
     <!--rosparam file="$(find kulbu_control)/config/sensor_imu.yaml" command="load" /-->
 
-    <group if="$(arg use_twowheels)" ns="diff_drive_controller">
-        <rosparam param="left_wheel">['mid_left_wheel_joint']</rosparam>
-        <rosparam param="right_wheel">['mid_right_wheel_joint']</rosparam>
-    </group>
-
     <node name="controller_spawner"
       pkg="controller_manager"
       type="spawner" respawn="false"
