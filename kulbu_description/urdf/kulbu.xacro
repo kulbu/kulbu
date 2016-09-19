@@ -18,8 +18,8 @@
     <xacro:arg name="gui" value="true"/>
 
     <xacro:include filename="$(find kulbu_description)/urdf/kulbu.gazebo" />
-    <xacro:include filename="$(find kulbu_description)/urdf/materials.xacro" />
-    <xacro:include filename="$(find kulbu_description)/urdf/macros.xacro" />
+    <xacro:include filename="$(find xacro_common)/urdf/materials.xacro" />
+    <xacro:include filename="$(find xacro_common)/urdf/macros.xacro" />
 
     <link name="base_link" />
 

@@ -6,7 +6,7 @@
 
   <maintainer email="mr-yellow@mr-yellow.com">Mr-Yellow</maintainer>
   <license>MIT</license>
-  <url type="website">https://github.com/mryellow/kulbu_description</url>
+  <url type="website">https://github.com/kulbu/kulbu_description</url>
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->
   <!-- Authors do not have to be maintianers, but could be -->
@@ -16,7 +16,8 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <run_depend>xacro</run_depend>
-  <run_depend>hector_gazebo_plugins</run_depend>
+  <run_depend>xacro_common</run_depend>
+  <!--run_depend>hector_gazebo_plugins</run_depend-->
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
